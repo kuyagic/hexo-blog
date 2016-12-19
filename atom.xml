@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[毒药的BLOG]]></title>
+  <subtitle><![CDATA[记录生活,分享快乐,了解技术]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://blog.duyao.de/"/>
+  <updated>2016-09-25T06:22:53.525Z</updated>
+  <id>http://blog.duyao.de/</id>
+  
+  <author>
+    <name><![CDATA[毒药]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Windows数据安全教程之EFS]]></title>
+    <link href="http://blog.duyao.de/post/windows-fs-security.html"/>
+    <id>http://blog.duyao.de/post/windows-fs-security.html</id>
+    <published>2016-08-06T06:07:59.000Z</published>
+    <updated>2016-09-25T06:22:53.525Z</updated>
+    <content type="html"><![CDATA[<h2 id="什么是EFS加密">什么是EFS加密</h2><blockquote>
+<p>EFS加密是基于公钥策略的。</p>
+</blockquote>
+<p>EFS加密系统对用户是透明的。这也就是说，如果你加密了一些数据，那么你对这些数据的访问将是完全允许的，并不会受到任何限制。而其他非授权用户试图访问加密过的数据时，就会收到“访问拒绝”的错误提示。EFS加密的用户验证过程是在登录Windows时进行的，只要登录到Windows，就可以打开任何一个被授权的加密文件。</p>
+<h2 id="如何加密文件">如何加密文件</h2><blockquote>
+<p>为了保证数据安全，推荐在移动硬盘上加密私人文件。</p>
+</blockquote>
+<ul>
+<li>确认所需要加密的文件是保存在 <code>NTFS</code> 分区上。</li>
+<li>另外最好是把需要加密的文件放在几个文件夹里。磁盘根目录不适合放需要加密的文件。当然也能针对一个文件进行下面的加密操作。<a id="more"></a></li>
+</ul>
+<ul>
+<li>在需要加密的文件夹上点右键，选择属性，然后勾选如图的勾，并点OK，然后点属性窗口的应用，然后选择应用到子文件夹和文件。视文件夹大小所需时间不同。最好是预先建立好空文件夹，然后把需要加密保护的文件放在这个文件夹内即可。</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577ccaf31a2cd.png" alt=""></p>
+</li>
+<li><p>加密完成后，系统应该会提示需要备份加密的证书。此时只要按照向导把证书备份到一个地方就可以了。期间需要输入保护证书的密码 </p>
+</li>
+<li><strong><code>密码很重要，在更换系统（电脑）或者重装系统后需要重新导入以解密之前加密的文件，导入证书时需要输入此密码，务必牢记</code></strong>  </li>
+</ul>
+<h2 id="备份加密的证书">备份加密的证书</h2><ul>
+<li>如果系统没有提示备份证书。则需要手动备份，步骤如下</li>
+<li><p>点击开始-&gt;运行,输入 certmgr.msc,然后回车，在左窗格展开“个人”/“证书”目录。如下图所示。</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cccfe46c3d.png" alt=""></p>
+</li>
+<li><p>我们需要的是<strong>预期目的</strong>被标记为<strong>加密文件系统</strong>的证书，在备份的时候记得不要选错了。，然后右键 选择<code>所有任务-&gt;导出</code>选项，然后在</p>
+</li>
+<li><p>欢迎使用证书导出向导对话框中单击<code>下一步</code>按钮。</p>
+</li>
+<li><p>然后在选择是否导出私钥的时候,务必选择 <strong><code>是</code></strong> ，然后选择保存位置。最后点导出。</p>
+</li>
+<li><p>看到导出成功后，应该能在保存位置看到一个 扩展名是<code>pfx</code>的文件，如果没有开启显示已知的扩展名的话应该看不到<code>pfx</code>，但是会有如图的这个图标 <img src="https://ooo.0o0.ooo/2016/07/06/577ccdf96219f.png" alt=""></p>
+</li>
+<li><p><em>可选安全操作步骤</em></p>
+<ul>
+<li><em>删除已经导出的这个证书，然后双击导出的这个<code>pfx</code>文件重新导入，在如下操作框内，不要勾选允许导出私钥，以保证不被他人恶意导出私钥用来解密你的文件</em><ul>
+<li><img src="https://ooo.0o0.ooo/2016/07/06/577ccee92d707.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置灾难恢复证书">配置灾难恢复证书</h2><blockquote>
+<p>为了防止之前导出的证书丢失，导致加密的文件不能访问，可以在系统里配置另外一个恢复证书，每次使用主证书加密文件的时候会把恢复证书信息也添加到加密后的文件中以保证灾难时能正常恢复加密的文件。<br>另外 需要<code>Windows7 旗舰版</code> 才能使用恢复代理 功能。</p>
+</blockquote>
+<ul>
+<li>依次点击开始<code>-&gt;</code>运行，输入<code>secpol.msc</code>，然后回车，以打开“本地安全策略”。</li>
+<li><p>单击“公钥策略”，右键单击“加密文件系统”，然后单击“添加数据恢复代理程序”。此操作将打开添加故障恢复代理向导，直接点击下一步。</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cd06c3eb5b.png" alt=""></p>
+</li>
+<li><p>然后在下一个窗口点击浏览选择和<strong>这个PDF文件</strong>一起的<code>recovery.cer</code>证书文件</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cd10eaaabe.png" alt=""></p>
+</li>
+<li><p>随后在下一个警告窗口中直接点<code>确定</code>就能导入恢复证书，导入完成后如之前那张图所示有一个<code>Chinni</code>的证书就表示成功。</p>
+</li>
+<li><p>最后需要刷新下策略，依次点击开始<code>-&gt;</code>运行，cmd，然后在命令行窗口里直接输入<code>gpupdate</code>，然后回车，稍等片刻就可以了。</p>
+</li>
+</ul>
+<h2 id="配置新设备">配置新设备</h2><blockquote>
+<p>在新的机器上使用移动硬盘，需要先安装之前导出的证书文件，然后最好配置灾难回复证书，然后再在新设备上操作加密的文件/文件夹。</p>
+</blockquote>
+<ul>
+<li>如果遇到系统重装，或者需要在新的电脑上使用已加密的文件则需要导入之前备份的<code>pfx</code>证书即可。导入的时候需要提供之前导出证书时候输入的密码。</li>
+</ul>
+<h2 id="参考文档">参考文档</h2><ul>
+<li><a href="http://baike.baidu.com/view/43143.htm" target="_blank" rel="external">百度百科</a></li>
+</ul>
+<h2 id="其他注意事项">其他注意事项</h2><ul>
+<li>视频文件，例如电影什么的可以不加密就不要加密。主要加密的是自有数据。比如文档照片之类的。</li>
+<li>另外比较推荐 坚果云（<a href="https://www.jianguoyun.com）" target="_blank" rel="external">https://www.jianguoyun.com）</a> 这个服务。大家可以去注册一个账号试用一下。可以把任意系统上的文件夹同步到网络。也有版本控制，能保留30天内的文件变更的历史版本。一般免费版够用。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="什么是EFS加密">什么是EFS加密</h2><blockquote>
+<p>EFS加密是基于公钥策略的。</p>
+</blockquote>
+<p>EFS加密系统对用户是透明的。这也就是说，如果你加密了一些数据，那么你对这些数据的访问将是完全允许的，并不会受到任何限制。而其他非授权用户试图访问加密过的数据时，就会收到“访问拒绝”的错误提示。EFS加密的用户验证过程是在登录Windows时进行的，只要登录到Windows，就可以打开任何一个被授权的加密文件。</p>
+<h2 id="如何加密文件">如何加密文件</h2><blockquote>
+<p>为了保证数据安全，推荐在移动硬盘上加密私人文件。</p>
+</blockquote>
+<ul>
+<li>确认所需要加密的文件是保存在 <code>NTFS</code> 分区上。</li>
+<li>另外最好是把需要加密的文件放在几个文件夹里。磁盘根目录不适合放需要加密的文件。当然也能针对一个文件进行下面的加密操作。]]>
+    
+    </summary>
+    
+      <category term="windows" scheme="http://blog.duyao.de/tags/windows/"/>
+    
+      <category term="加密" scheme="http://blog.duyao.de/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+      <category term="日记" scheme="http://blog.duyao.de/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JPG无损压缩工具介绍]]></title>
+    <link href="http://blog.duyao.de/post/a-competitive-jpg-compression-tool.html"/>
+    <id>http://blog.duyao.de/post/a-competitive-jpg-compression-tool.html</id>
+    <published>2016-07-04T02:38:00.000Z</published>
+    <updated>2016-09-25T06:22:53.469Z</updated>
+    <content type="html"><![CDATA[<p>大家都知道JPG是一个图片格式.已经经过了优化和压缩.所以在分享很多图片的时候一般都直接打包选择不压缩.然后主要是可以变成一个文件方便分享.因为确实目前大众化的压缩格式比如 <code>zip</code> <code>7z</code> <code>rar</code>都不能很好的压缩图片。 <a id="more"></a> </p>
+<p>以前在逛 <a href="http://www.maximumcompression.com/data/jpg.php" target="_blank" rel="external">​maximumcompression</a> 的时候凑巧也看到了一个新的JPG算法.压缩率可以在 70% ~ 85% 之间.比起之前传统压缩软件的 99% ~ 101% 要好太多了.  </p>
+<p>自己粗略的找了下 然后在 <code>GitHub</code> 上找到了这个名字叫 <a href="https://github.com/packjpg/packARC" target="_blank" rel="external">PackARC</a> 的软件.意外的它除了能更好的处理 JPG 格式以外,还能优化 MP3 和 BMP 格式.  </p>
+<p>下面这个图是一个文件夹(包含了1000+的jpg图片,和一些文本文件),和用<code>PackARC</code>打包后的pkg文件大小对比.效果还是比较可观的  </p>
+<p><img src="https://ws3.sinaimg.cn/large/677ca070gw1f5ho7j8l9cj20el03wdgk.jpg" alt="">  </p>
+<p>下载源码后.可以直接在Linux下进行编译,也可以在<a href="http://packjpg.encode.ru/?page_id=21" target="_blank" rel="external">这里</a>下载到预编译的二进制文件(包括Windows平台)  </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>大家都知道JPG是一个图片格式.已经经过了优化和压缩.所以在分享很多图片的时候一般都直接打包选择不压缩.然后主要是可以变成一个文件方便分享.因为确实目前大众化的压缩格式比如 <code>zip</code> <code>7z</code> <code>rar</code>都不能很好的压缩图片。]]>
+    
+    </summary>
+    
+      <category term="工具" scheme="http://blog.duyao.de/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="技巧" scheme="http://blog.duyao.de/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+      <category term="程序" scheme="http://blog.duyao.de/tags/%E7%A8%8B%E5%BA%8F/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[为 Nginx 添加 HTTP/2 的技能加持]]></title>
+    <link href="http://blog.duyao.de/post/http2-with-nginx.html"/>
+    <id>http://blog.duyao.de/post/http2-with-nginx.html</id>
+    <published>2016-01-01T16:58:01.000Z</published>
+    <updated>2016-09-25T06:22:53.469Z</updated>
+    <content type="html"><![CDATA[<p>今年5月份吧…好像是, HTTP/2 的协议正式版出来了. 替代了之前一直是测试的spdy的协议</p>
+<p>下面我们来为nginx添加这个协议的支持.<br> 本文章是使用 Tengine的这个nginx的mod 版本来做的.<br>  首先从 <a href="https://www.github.com" target="_blank" rel="external">github</a> 上下载源码<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="string">https:</span><span class="comment">//github.com/alibaba/tengine.git</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在 configure的时候需要加2个配置参数</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --<span class="keyword">with</span>-http_ssl_module --<span class="keyword">with</span>-http_v2_module</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>编译完成后执行如下命令确认是否包含http2的模块</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objs/nginx -V</span><br></pre></td></tr></table></figure>
+<p>如果<code>ngx_http_v2_module (static)</code> 这么一行内容那就说明已经成功了.  </p>
+<p>最后需要在虚拟主机的配置文件里把原来的</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">listen</span></span> 443 ssl</span><br></pre></td></tr></table></figure>
+<p>改成<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="common">listen</span></span> 443 ssl http2 fastopen=3 reuseport</span><br></pre></td></tr></table></figure></p>
+<p>就可以了. 注意 <code>http2</code> 这个关键字只需要在所有 <code>linsten 443 ssl</code> 里出现一次即可 负责会报 配置重复.最后<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">service</span> nginx reload</span><br></pre></td></tr></table></figure></p>
+<p>PS: 如果 Chrome 出现了 <code>ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY</code> 的错误的话,</p>
+<ul>
+<li>请检查 配置文件的 <code>ssl_ciphers</code> 节点. 可能需要修改为如下的值</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssl_ciphers 'CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:ECDHE-RSA-AES128-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA128:DHE-RSA-AES128-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA128:ECDHE-RSA-AES128-SHA384:ECDHE-RSA-AES128-SHA128:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA128:DHE-RSA-AES128-SHA128:DHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-<span class="keyword">DES</span>-CBC3-SHA:EDH-RSA-<span class="keyword">DES</span>-CBC3-SHA:AES128-GCM-SHA384:AES128-GCM-SHA128:AES128-SHA128:AES128-SHA128:AES128-SHA:AES128-SHA:<span class="keyword">DES</span>-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!<span class="keyword">DES</span>:!MD5:!PSK:!RC4;';</span><br><span class="line">ssl_prefer_server_ciphers <span class="keyword">on</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可能是weak dhparam 的问题.需要生成一个 2048 位的 dhparam 然后配置下.</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl dhparam -out dhparams<span class="class">.pem</span> <span class="number">2048</span></span><br></pre></td></tr></table></figure>
+<p>然后 在nginx配置文件里添加 </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">ssl_dhparam</span> &#123;<span class="title">path</span> to dhparams.pem&#125;</span><br></pre></td></tr></table></figure>
+<p>最后重新加载下 nginx 就可以大功告成了</p>
+<blockquote>
+<p>参考文档</p>
+<ul>
+<li><a href="https://weakdh.org/sysadmin.html" target="_blank" rel="external">https://weakdh.org/sysadmin.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP/2" target="_blank" rel="external">https://en.wikipedia.org/wiki/HTTP/2</a></li>
+</ul>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今年5月份吧…好像是, HTTP/2 的协议正式版出来了. 替代了之前一直是测试的spdy的协议</p>
+<p>下面我们来为nginx添加这个协议的支持.<br> 本文章是使用 Tengine的这个nginx的mod 版本来做的.<br>  首先从 <a href="https://www.github.com">github</a> 上下载源码<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="string">https:</span><span class="comment">//github.com/alibaba/tengine.git</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在 configure的时候需要加2个配置参数</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --<span class="keyword">with</span>-http_ssl_module --<span class="keyword">with</span>-http_v2_module</span><br><span class="line">make</span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://blog.duyao.de/tags/Linux/"/>
+    
+      <category term="nginx" scheme="http://blog.duyao.de/tags/nginx/"/>
+    
+      <category term="加密" scheme="http://blog.duyao.de/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[密码管理软件Enpass介绍]]></title>
+    <link href="http://blog.duyao.de/post/intro-to-password-manager-enpass.html"/>
+    <id>http://blog.duyao.de/post/intro-to-password-manager-enpass.html</id>
+    <published>2015-12-28T14:17:19.000Z</published>
+    <updated>2016-09-25T06:22:53.393Z</updated>
+    <content type="html"><![CDATA[<p><img src="//enpass.io/static/media/uploads/wpcool/pc0.png" alt=""><br><a href="https://enpass.io" target="_blank" rel="external">Enpass</a>是一款密码管理工具，用户可以把一些需要记住的帐号和密码保存在这里，它采用了军用级加密术，保证了密码帐号的安全，将密码都存在这里，那么就只需要记住该软件的密码就行咯，不用担心手机掉了密码就没了的问题，因为这个是跨平台的工具，在PC上也能查找。<br><a id="more"></a><br><img src="//ooo.0o0.ooo/2015/12/28/568146d9457d1.jpeg" alt="screen800x500.jpeg"><br>另外,桌面版的客户端都是免费的,包含PC,Mac和Linux,移动版的话是一个平台10美金永久使用.相对<code>Lastpass</code>和<code>1Password</code>厚道多了..<br><img src="//enpass.io/static/media/uploads/linux/lin10.png" alt=""><br>当然也支持 Firefox/Chrome的插件<br>数据同步方面,支持几个主流的网盘,只可惜在国内只有OneDrive可以正常使用了.当然程序可以设置代理服务器,如果有<code>技巧</code>的话,我还是推荐使用Dropbox来同步.<br><img src="//ooo.0o0.ooo/2015/12/28/56814687ad840.png" alt="设置_2015-12-28_22-23-32.png"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="//enpass.io/static/media/uploads/wpcool/pc0.png" alt=""><br><a href="https://enpass.io">Enpass</a>是一款密码管理工具，用户可以把一些需要记住的帐号和密码保存在这里，它采用了军用级加密术，保证了密码帐号的安全，将密码都存在这里，那么就只需要记住该软件的密码就行咯，不用担心手机掉了密码就没了的问题，因为这个是跨平台的工具，在PC上也能查找。<br>]]>
+    
+    </summary>
+    
+      <category term="加密" scheme="http://blog.duyao.de/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+      <category term="工具" scheme="http://blog.duyao.de/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="软件" scheme="http://blog.duyao.de/tags/%E8%BD%AF%E4%BB%B6/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[在Ubuntu上编译安装PHP和Nginx]]></title>
+    <link href="http://blog.duyao.de/post/install-lnmp-on-ubuntu.html"/>
+    <id>http://blog.duyao.de/post/install-lnmp-on-ubuntu.html</id>
+    <published>2015-09-21T02:30:42.000Z</published>
+    <updated>2016-09-25T06:22:53.461Z</updated>
+    <content type="html"><![CDATA[<p>在Ubuntu上编译安装PHP,Nginx <a id="more"></a>  </p>
+<h5 id="Web_Server_(Tengine)">Web Server (Tengine)</h5><p>第一步,安装依赖包<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> install git build-essential m4 autoconf libxml2-<span class="built_in">dev</span> libssl-<span class="built_in">dev</span> libbz2-<span class="built_in">dev</span> \</span><br><span class="line">libcurl3-<span class="built_in">dev</span> libdb5<span class="number">.1</span>-<span class="built_in">dev</span> libjpeg-<span class="built_in">dev</span> libpng-<span class="built_in">dev</span> libXpm-<span class="built_in">dev</span> libfreetype6-<span class="built_in">dev</span> \</span><br><span class="line">libt1-<span class="built_in">dev</span> libgmp3-<span class="built_in">dev</span> libc-client-<span class="built_in">dev</span> libldap2-<span class="built_in">dev</span> libmcrypt-<span class="built_in">dev</span> \</span><br><span class="line">libmhash-<span class="built_in">dev</span> freetds-<span class="built_in">dev</span> libz-<span class="built_in">dev</span> libmysqlclient15-<span class="built_in">dev</span> \</span><br><span class="line">ncurses-<span class="built_in">dev</span> libpcre3-<span class="built_in">dev</span> unixODBC-<span class="built_in">dev</span>  libsqlite-<span class="built_in">dev</span> libaspell-<span class="built_in">dev</span> \</span><br><span class="line">libreadline6-<span class="built_in">dev</span> librecode-<span class="built_in">dev</span> libsnmp-<span class="built_in">dev</span> libtidy-<span class="built_in">dev</span> libxslt-<span class="built_in">dev</span> \</span><br><span class="line">libt1-<span class="built_in">dev</span> libpspell-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure></p>
+<p>从这里下载最新的 Tengine 源码,然后在Linux环境下解压<br><a href="https://github.com/alibaba/tengine/archive/master.zip" target="_blank" rel="external">戳这里下载</a>,或者直接在SSH下执行以下命令<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//github.com/alibaba/tengine/archive/master.zip</span></span><br><span class="line">unzip master.<span class="keyword">zip</span></span><br><span class="line"><span class="keyword">cd</span> tengine*</span><br></pre></td></tr></table></figure></p>
+<p>然后可以使用这个配置来生成编译文件<code>Makefile</code><br><!--more--><br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'./configure'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--prefix=/opt/tengine'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--conf-path=/opt/tengine/conf/tengine.conf'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--error-log-path=/var/log/tengine/error.log'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-log-path=/var/log/tengine/access.log'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-client-body-temp-path=/tmp/tengine/body/'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-proxy-temp-path=/tmp/tengine/proxy/'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-fastcgi-temp-path=/tmp/tengine/fastcgi/'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-uwsgi-temp-path=/tmp/tengine/uwsgi'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--http-scgi-temp-path=/tmp/tengine/scgi/'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--pid-path=/var/run/tengine.pid'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--user=www-data'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--group=www-data'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-ipv6'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_spdy_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_addition_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_sub_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_gunzip_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_gzip_static_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_secure_link_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_flv_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_slice_module'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-http_mp4_module'</span></span><br></pre></td></tr></table></figure></p>
+<p>然后,可能需要手动建立日志文件夹和临时文件夹.<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/tengine -p</span><br><span class="line">chown www-data:www-data /<span class="keyword">var</span>/<span class="keyword">log</span>/tengine</span><br><span class="line"><span class="keyword">mkdir</span> /tmp/tengine/&#123;body,proxy,fastcgi,uwsgi,scgi&#125; -p</span><br></pre></td></tr></table></figure></p>
+<p>最后使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span></span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure></p>
+<p>就把 Web Server安装到了 <code>/opt/tengine</code> 目录下,配置文件夹是 <code>/opt/tengine/conf</code>  </p>
+<h5 id="PHP">PHP</h5><p>推荐安装 php 5.6<br>从这个网页下载压缩包 然后同上方法使用 <code>tar xf</code> 来解压.<br><a href="http://php.net/downloads.php#v5.6.13" target="_blank" rel="external">http://php.net/downloads.php#v5.6.13</a><br>可以使用下面的 configure 来生成 <code>Makefile</code><br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'./configure'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--prefix=/opt/php56'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-config-file-path=/opt/php56/etc'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-fpm-user=www-data'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-fpm-group=www-data'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-fpm'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-opcache'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-mysql=mysqlnd'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-mysqli=mysqlnd'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-pdo-mysql=mysqlnd'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--disable-fileinfo'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-iconv-dir=/usr/local'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-freetype-dir'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-jpeg-dir'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-png-dir'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-zlib'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-libxml-dir=/usr'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-xml'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--disable-rpath'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-bcmath'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-shmop'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-exif'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-sysvsem'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-inline-optimization'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-curl'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-mbregex'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-mbstring'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-mcrypt'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-gd'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-gd-native-ttf'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-openssl'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-mhash'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-pcntl'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-sockets'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-xmlrpc'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-ftp'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-gettext'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-zip'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--enable-soap'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--disable-ipv6'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--disable-debug'</span> <span class="string">\</span></span><br><span class="line"><span class="string">'--with-xpm-dir=/usr'</span></span><br></pre></td></tr></table></figure></p>
+<p>同样 最后用make来安装  </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span></span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure>
+<p>配置文件路径是在 <code>/opt/php56/etc/</code> 下. 可以修改prefix来指定安装位置</p>
+<h5 id="MySQL">MySQL</h5><p>MySQL 简单使用源安装就可以了,简单粗暴  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="operator"><span class="keyword">install</span> mysql-<span class="keyword">server</span> -y</span></span><br></pre></td></tr></table></figure>
+<p>期间会被要求输入数据库 <code>root</code> 用户的密码</p>
+<p>最后,可能需要几个维护脚本来启动和停止 PHP 和 Tengine<br>PHP 脚本  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http<span class="variable">s:</span>//<span class="built_in">copy</span>.<span class="keyword">com</span>/UJUdMHssipz1egvu/php.init.<span class="keyword">d</span></span><br></pre></td></tr></table></figure>
+<p>只需要下载到 <code>/etc/init.d/</code> 下 修改为 <code>php56</code> ,然后使用 <code>service php56</code> 就可以启动和重启了<br>同理 Tengine 脚本</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http<span class="variable">s:</span>//<span class="built_in">copy</span>.<span class="keyword">com</span>/gocvHDikQFKaTRUK/tengine.init.<span class="keyword">d</span></span><br></pre></td></tr></table></figure>
+<p>以上脚本默认安装路径都是 <code>/opt</code> , 如果修改了之前的安装路径,需要对应修改脚本一开始的路径.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Ubuntu上编译安装PHP,Nginx]]>
+    
+    </summary>
+    
+      <category term="工具" scheme="http://blog.duyao.de/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="技巧" scheme="http://blog.duyao.de/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+      <category term="程序" scheme="http://blog.duyao.de/tags/%E7%A8%8B%E5%BA%8F/"/>
+    
+      <category term="日记" scheme="http://blog.duyao.de/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[nexus-6]]></title>
+    <link href="http://blog.duyao.de/post/nexus-6.html"/>
+    <id>http://blog.duyao.de/post/nexus-6.html</id>
+    <published>2015-05-13T13:20:48.000Z</published>
+    <updated>2016-09-25T06:22:53.601Z</updated>
+    <content type="html"><![CDATA[<p>在昨天.哥终于入手了 <code>Nexus 6</code> ,这到底只为何呢.其实就是在前几天的一个晚上.<br>我把我的 大中兴手机插在电脑上充电,过了一会儿,我去摸了一下,感觉好热,然后开屏一看,果然是Play Store在更新软件, 于是我就把USB线给拔掉了,之后就去泡了杯咖啡,洗了个手,往回走的时候听到了一个不科学的声音,是电脑USB设备断开的声音,我在想,尼玛这手机啥时候这么高级了,更新程序居然会自动重启么…<br>结果事实证明我错了.错的很离谱,当我赶到手机旁边的时候,我已经发现他彻底得离开了我.怎么按都点不亮了….<br>之后又尝试接了N次USB,充电N次,没效果.只能放弃.<br>最后还是入手了大Google的亲生儿子….<br><img src="https://cldup.com/FzfZC5qcgk.jpg" alt=""><br>&nbsp;&nbsp;还是Google 大气,虽然单手操作确实有点吃力.但是稳定才是王道.北美版 修改了配置后直接上电信3G没有任何问题.<br><img src="https://cldup.com/0hYcVQXh6j.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在昨天.哥终于入手了 <code>Nexus 6</code> ,这到底只为何呢.其实就是在前几天的一个晚上.<br>我把我的 大中兴手机插在电脑上充电,过了一会儿,我去摸了一下,感觉好热,然后开屏一看,果然是Play Store在更新软件, 于是我就把USB线给拔掉了,之]]>
+    </summary>
+    
+      <category term="Android" scheme="http://blog.duyao.de/tags/Android/"/>
+    
+      <category term="Google" scheme="http://blog.duyao.de/tags/Google/"/>
+    
+      <category term="日记" scheme="http://blog.duyao.de/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[奇妙种子养成计划]]></title>
+    <link href="http://blog.duyao.de/post/a-wonderful-seed-game.html"/>
+    <id>http://blog.duyao.de/post/a-wonderful-seed-game.html</id>
+    <published>2015-04-11T14:38:37.000Z</published>
+    <updated>2016-09-25T06:22:53.565Z</updated>
+    <content type="html"><![CDATA[<p>一个 奇妙的种子养成的小游戏<br>也不多说了直接上游戏.大家可以每个分支都尝试下.<br>略新(kong)意(bu)的元素<br><code></code></p>
+<p><embed src="//cloudapp.duyao.de/items/2w3s2x433P05113b1L06/mitoza.swf" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="500" height="350"><br></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>一个 奇妙的种子养成的小游戏<br>也不多说了直接上游戏.大家可以每个分支都尝试下.<br>略新(kong)意(bu)的元素<br><code></code></p>
+<p><embed src="//cloudapp.duyao.de/items/2w3s2x433P05]]>
+    </summary>
+    
+      <category term="游戏" scheme="http://blog.duyao.de/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[四月是你的谎言完结]]></title>
+    <link href="http://blog.duyao.de/post/kimiuso-fin.html"/>
+    <id>http://blog.duyao.de/post/kimiuso-fin.html</id>
+    <published>2015-03-20T13:54:39.000Z</published>
+    <updated>2016-12-19T01:19:57.676Z</updated>
+    <content type="html"><![CDATA[<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqcjgfyj2uj20jy0b8jt0.jpg" alt="">  </p>
+<p>那是他十一岁的秋天,那个被称为天才钢琴家的<code>有馬公生</code>,由于母亲的突然离世而再也不能弹琴,从那以后,他的时间静止了.然而注意到变化的青梅竹马<code>澤部椿</code>邀请他去参加了同样是公生的青梅竹马的<code>渡亮太</code>还有某个女生的双人的约会.虽然不情愿但是还是走向约定地点的公生,在那里他遇见了正在演奏口风琴,喜欢渡的少女,<code>宫园薰</code>,一个小提琴家.   </p>
+<hr>
+<p>以下内容包含强烈剧透.没有看过的戳这里  </p>
+<p><strong>强烈推荐</strong></p>
+<p><a href="http://www.bilibili.com/sp/%E5%9B%9B%E6%9C%88%E6%98%AF%E4%BD%A0%E7%9A%84%E8%B0%8E%E8%A8%80" target="_blank" rel="external">赶紧戳这里观看</a></p>
+<p><a href="http://pan.baidu.com/s/1o6ie5Xg" target="_blank" rel="external">收藏癖戳这里</a> 密码: 2hhp<br><a id="more"></a></p>
+<hr>
+<p><img src="https://ws3.sinaimg.cn/large/677ca070jw1eqcjged887j20jy0b8tb3.jpg" alt=""> </p>
+<p><code>宫园薰</code>市立墨谷国中三年级生,小提琴手,知道公生以前常参加各种钢琴竞赛的事迹,对公生抱有憧憬.患有重病,但一直对公生隐瞒了自己的病情.家中是开蛋糕店,她的父母对有马公生抱有很大好感.</p>
+<hr>
+<p><img src="https://ws3.sinaimg.cn/large/677ca070jw1eqcjxr7qtyj20jy0b8q4p.jpg" alt="">  </p>
+<p><code>相座武士</code>,与公生同年代的钢琴手,因憧憬公生而开始练习钢琴,并一直以超越他为目标.认为公生是一个孤高的钢琴家.性格看起来像不良少年.其实天真,被公生夸奖后就得意忘形,是个容易相处的人,骨子内隐藏着执著.</p>
+<hr>
+<p><img src="https://ws1.sinaimg.cn/large/677ca070jw1eqcjgjh82aj20jy0b8myf.jpg" alt="">  </p>
+<p>国中三年级时，某一天在青梅竹马椿的介绍下，认识同年级的小提琴手——<code>宫园薰</code>，并于一场合奏的音乐比赛中被薰自由奔放的演奏风格所吸引，自此心境与日常生活开始转变。</p>
+<hr>
+<p><img src="https://ws3.sinaimg.cn/large/677ca070jw1eqcjma6g1hj20jy0b8dia.jpg" alt="">  </p>
+<p>在薰的二次预赛前被其拉作伴奏,但因自己听不到琴音而中断演奏,在被薰说 “again”后再次弹起钢琴,并以自己的身体记忆作为乐谱,虽然最后落选,但却震撼了全场观众.薰要求公生参加每报钢琴大赛作为使其落选的道歉,但在比赛中途再度因听不到琴音而中断演奏,而后以自己的感情为想像图并变换音色,为薰演奏了一首充满四月气息的曲子,虽然最后因为中途暂停被取消资格,但该曲子却感动了全场.</p>
+<hr>
+<p><img src="https://ws1.sinaimg.cn/large/677ca070jw1eqcjnkiih5j20jy0b8ta9.jpg" alt=""></p>
+<p>在滕和音乐祭典上,以为薰迟到,故而希望身为初中生压轴的三池君能够愿意替换上场顺序,其后因三池君对薰的忌妒侮辱了薰而感到不服,誓言会夺取本次压轴的宝座,并且跟<code>濑户纮子</code>说曲目不变,因为某个人(薰)说”在舞台上就是要抢眼”.</p>
+<hr>
+<p><img src="https://ws1.sinaimg.cn/large/677ca070jw1eqcjv7lg2uj216o0o0ae2.jpg" alt=""></p>
+<p>一开始以忿忿不平的心情去弹奏母亲生前最喜欢的曲子”爱的忧伤”,但是在中途又开始听不见自己的琴音,之后回忆起母亲弹奏这个曲子的种种一切,意识到了母亲对自己的爱,然后便开始变换琴音,让全场的人再次感动无比且深深回味,而无心听下一场演奏.最后自己在比赛中离开了母亲所带来的阴影.</p>
+<hr>
+<p><img src="http://www.kimiuso.jp/assets/img/story/episode/photo/14/photo4.jpg" alt="">  </p>
+<p>在得知没有去参加音乐祭典的薰在家昏倒被送往医院后去看望她的公生一行人,虽然薰看上去乐呵呵的,但是情况并不容乐观.另一方面从小开始椿和公生的良好关系由于薰的出现,椿开始对自己的感情有了动摇.</p>
+<hr>
+<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqckevb93mj20jy0b8q4k.jpg" alt="">  </p>
+<p>听了公生的演奏后,准备再一次和公生一同演奏的薰决定进行手术,一边激励着准备下一次比赛的公生,也为了自己能再一次登上舞台努力得进行着恢复训练</p>
+<hr>
+<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqck8sjvtdj20ju0b6jtk.jpg" alt=""></p>
+<p>打算一如既往的去探病的公生,发现了渡已经先到了.于是打消了念头,却被椿看见了不能正视自己感情而心累的一面.</p>
+<hr>
+<p><img src="https://ws3.sinaimg.cn/large/677ca070jw1eqckijtpaaj20jy0b8mxx.jpg" alt=""> </p>
+<p>受到薰病情恶化的影响而放弃面对钢琴的公生,想到音乐会使自己失去重要的人,陷入了过去的心理阴影,再次感觉到了自己只是孤单一个人.</p>
+<hr>
+<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqcklp54wlj20jy0b8wg6.jpg" alt=""></p>
+<hr>
+<p><video width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://cloud4cloud.sinaapp.com/file/6100c0ee0de6794af87761ddb7b84b67/video.mp4"></video></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqcjgfyj2uj20jy0b8jt0.jpg" alt="">  </p>
+<p>那是他十一岁的秋天,那个被称为天才钢琴家的<code>有馬公生</code>,由于母亲的突然离世而再也不能弹琴,从那以后,他的时间静止了.然而注意到变化的青梅竹马<code>澤部椿</code>邀请他去参加了同样是公生的青梅竹马的<code>渡亮太</code>还有某个女生的双人的约会.虽然不情愿但是还是走向约定地点的公生,在那里他遇见了正在演奏口风琴,喜欢渡的少女,<code>宫园薰</code>,一个小提琴家.   </p>
+<hr>
+<p>以下内容包含强烈剧透.没有看过的戳这里  </p>
+<p><strong>强烈推荐</strong></p>
+<p><a href="http://www.bilibili.com/sp/%E5%9B%9B%E6%9C%88%E6%98%AF%E4%BD%A0%E7%9A%84%E8%B0%8E%E8%A8%80">赶紧戳这里观看</a></p>
+<p><a href="http://pan.baidu.com/s/1o6ie5Xg">收藏癖戳这里</a> 密码: 2hhp<br>]]>
+    
+    </summary>
+    
+      <category term="动画" scheme="http://blog.duyao.de/tags/%E5%8A%A8%E7%94%BB/"/>
+    
+      <category term="漫画" scheme="http://blog.duyao.de/tags/%E6%BC%AB%E7%94%BB/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[中意的Markdown编辑器]]></title>
+    <link href="http://blog.duyao.de/post/favorite-mark-down-editor-on-windows.html"/>
+    <id>http://blog.duyao.de/post/favorite-mark-down-editor-on-windows.html</id>
+    <published>2015-03-14T03:54:41.000Z</published>
+    <updated>2016-12-19T01:20:34.096Z</updated>
+    <content type="html"><![CDATA[<p>算是找到了一个自己比较喜欢的 <code>Markdown</code> 编辑器了,他就是 <strong> Haroopad</strong><br>一直在Google 里用关键字 <code>markdown editor windows</code> 翻啊翻, 结果还是在第一页找到了适合自己的.<br>一开始在 Win 8.1 下运行还不成功.最后改成Win7兼容模式就可以运行了.<br>下面是几个截图</p>
+<hr>
+<p><strong> 主界面 </strong></p>
+<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqa3lvinrij20sg0goafi.jpg" alt=""></p>
+<hr>
+<p><strong> 设置界面 </strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/677ca070jw1eqa3ltdudij20se0gq79k.jpg" alt=""></p>
+<a id="more"></a>
+<p>官网在<a href="http://pad.haroopress.com/" target="_blank" rel="external"><code>这里</code></a></p>
+<p>总体来说还是比较顺手的.比较喜欢如下几点</p>
+<blockquote>
+<ul>
+<li>可以使用 <code>vim</code> 的操作习惯.</li>
+<li>有基本的Markdown语法帮助</li>
+<li>有简单的格式插入,比如斜体,图片,等.</li>
+</ul>
+</blockquote>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>算是找到了一个自己比较喜欢的 <code>Markdown</code> 编辑器了,他就是 <strong> Haroopad</strong><br>一直在Google 里用关键字 <code>markdown editor windows</code> 翻啊翻, 结果还是在第一页找到了适合自己的.<br>一开始在 Win 8.1 下运行还不成功.最后改成Win7兼容模式就可以运行了.<br>下面是几个截图</p>
+<hr>
+<p><strong> 主界面 </strong></p>
+<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqa3lvinrij20sg0goafi.jpg" alt=""></p>
+<hr>
+<p><strong> 设置界面 </strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/677ca070jw1eqa3ltdudij20se0gq79k.jpg" alt=""></p>]]>
+    
+    </summary>
+    
+      <category term="Markdown" scheme="http://blog.duyao.de/tags/Markdown/"/>
+    
+      <category term="windows" scheme="http://blog.duyao.de/tags/windows/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[xdomain提供的免费空间]]></title>
+    <link href="http://blog.duyao.de/post/xdomain-free-web-hosting.html"/>
+    <id>http://blog.duyao.de/post/xdomain-free-web-hosting.html</id>
+    <published>2015-03-12T01:57:42.000Z</published>
+    <updated>2016-09-25T06:22:53.557Z</updated>
+    <content type="html"><![CDATA[<p>xdomain 一直提供免费的html,php 和 wordpress专用的 免费空间,免费容量是1G,支持绑定域名.<br>绑定域名依然是以下几种方式  </p>
+<p>改nameserver,指向xdomain的ns服务器<br>在域名根目录下放一个静态的html文件<br>往whois 里登记的 email 地址 发验证码.</p>
+<p>我已经成功开通了html的静态空间.用来放hexo也不错<br><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqa486wpxwj20rz0gp7bd.jpg" alt=""></p>
+<p>首先在<a href="https://www.xdomain.ne.jp/register/server.php" target="_blank" rel="external">这里</a>进行会员注册, 可能需要日本的邮编和手机号码.大家自己百度下就有了. </p>
+<p>完成注册后,登录到后台然后点击左边的<code>無料レンタルサーバー</code>就可以看到上面的图了.默认3个服务都是没有开的. </p>
+<p>然后根据需要如下图在<a href="https://secure.xdomain.ne.jp/server_html/?action_user_domain_index=true" target="_blank" rel="external">这里</a>进行域名的绑定<br><img src="https://ws3.sinaimg.cn/large/677ca070jw1eqa484kbomj20ri0dkgpj.jpg" alt="">  </p>
+<p><strong>注意域名绑定生效可能需要1小时左右</strong>  </p>
+<p>然后就可以正常使用了.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>xdomain 一直提供免费的html,php 和 wordpress专用的 免费空间,免费容量是1G,支持绑定域名.<br>绑定域名依然是以下几种方式  </p>
+<p>改nameserver,指向xdomain的ns服务器<br>在域名根目录下放一个静态的html文件<]]>
+    </summary>
+    
+      <category term="Hexo" scheme="http://blog.duyao.de/tags/Hexo/"/>
+    
+      <category term="免费" scheme="http://blog.duyao.de/tags/%E5%85%8D%E8%B4%B9/"/>
+    
+      <category term="日本" scheme="http://blog.duyao.de/tags/%E6%97%A5%E6%9C%AC/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+      <category term="主机服务" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/%E4%B8%BB%E6%9C%BA%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Sandboxie 4.16 64位最新哈哈版]]></title>
+    <link href="http://blog.duyao.de/post/sandboxie-4-16-x64-full.html"/>
+    <id>http://blog.duyao.de/post/sandboxie-4-16-x64-full.html</id>
+    <published>2015-03-01T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.481Z</updated>
+    <content type="html"><![CDATA[<p>Sandboxie 自从去掉了终身版授权后.就比较坑了.然后64位系统下的哈哈版进展也是要关掉驱动验证的.现在有了一个用吊销证书来签名驱动的办法.我已经把哈哈后的驱动签名好了.直接提供打包下载.</p>
+<p>下面是安装流程.<br>第一步：安装sandboxie，安装到加载驱动时暂停.</p>
+<p>第二步：复制SbieDrv.sys到程序安装文件夹.</p>
+<p>第三步：接第一步继续安装，不要点完成，运行“keygen_by_uuk.exe”（管理员身份）</p>
+<p>看下面的path是不是沙盘的安装路径，不是就修改</p>
+<p>然后点击“Version”后面的“&#8230;”按钮，将版本复制到前面（如4.16）</p>
+<p>“Syscode”后面的“&#8230;”按钮，将系统代码复制到前面（如ABCDEF0123456789）</p>
+<p>“Time”栏改成 21121231 ，或者随便一个未来的日期</p>
+<p>点击“Activate”按钮即可激活。</p>
+<p>&nbsp;</p>
+<p>相关安装文件在 <span style="background-color: #ff99cc;"><a style="background-color: #ff99cc;" href="http://cloudapp.duyao.de/items/323x3f0P0J3k2g351E2F/Sandboxie-4.16-x64-full.zip" target="_blank">这里</a></span>.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Sandboxie 自从去掉了终身版授权后.就比较坑了.然后64位系统下的哈哈版进展也是要关掉驱动验证的.现在有了一个用吊销证书来签名驱动的办法.我已经把哈哈后的驱动签名好了.直接提供打包下载.</p>
+<p>下面是安装流程.<br>第一步：安装sandboxie，安装到加]]>
+    </summary>
+    
+      <category term="windows" scheme="http://blog.duyao.de/tags/windows/"/>
+    
+      <category term="软件" scheme="http://blog.duyao.de/tags/%E8%BD%AF%E4%BB%B6/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[尝试把手机升级到了5.0]]></title>
+    <link href="http://blog.duyao.de/post/upgrade-to-lollipop.html"/>
+    <id>http://blog.duyao.de/post/upgrade-to-lollipop.html</id>
+    <published>2015-02-15T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.481Z</updated>
+    <content type="html"><![CDATA[<p>国产手机不容易啊. 年初的时候看到有5.0的系统,一直没有升级.是因为我一直在用Xposed的框架.因为有2个软件我是必须要用的.一个是<a href="http://repo.xposed.info/module/biz.bokhorst.xprivacy" target="_blank">Xprivacy</a>还有一个就是<a href="https://play.google.com/store/apps/details?id=com.oasisfeng.greenify&hl=zh" target="_blank">绿色守护</a>了.</p>
+<p>如今我前几天看到了Xposed框架登陆5.0系统的消息.然后今天终于在完整备份了所有4.4的系统后.尝试升级到了5.0.</p>
+<p>第一感觉.第一次开机的速度比以前刷好4.x的时候速度快了一倍多.然后就是界面流畅程度.感觉也是比4.x时代要快很多.果然art是很威武的.</p>
+<p>然后在刷了<a href="http://forum.xda-developers.com/paranoid-android/general/gapps-official-to-date-pa-google-apps-t2943900" target="_blank">Gapp</a>和<a href="http://forum.xda-developers.com/crossdevice-dev/android-one-general/root-android-one-common-to-t2885737" target="_blank">XposedAlpha</a>版本后,重启.果然成功了.现在在还原软件.我只希望2个程序能在Xposed框架下存活就可以了.其他的我都可以不要.</p>
+<p>基本功能算完美.</p>
+<p>如果有用 Nubia Z5S mini 的朋友.你们也可以动手了.</p>
+<p>我刷的ROM下载地址在 <a href="http://www.yirom.com/rom/index/246" target="_blank">这里</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>国产手机不容易啊. 年初的时候看到有5.0的系统,一直没有升级.是因为我一直在用Xposed的框架.因为有2个软件我是必须要用的.一个是<a href="http://repo.xposed.info/module/biz.bokhorst.xprivacy" target]]>
+    </summary>
+    
+      <category term="Google" scheme="http://blog.duyao.de/tags/Google/"/>
+    
+      <category term="android" scheme="http://blog.duyao.de/tags/android/"/>
+    
+      <category term="lollipop" scheme="http://blog.duyao.de/tags/lollipop/"/>
+    
+      <category term="xposed" scheme="http://blog.duyao.de/tags/xposed/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Falcom 游戏回顾]]></title>
+    <link href="http://blog.duyao.de/post/falcom-game-roadmap.html"/>
+    <id>http://blog.duyao.de/post/falcom-game-roadmap.html</id>
+    <published>2015-01-11T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.385Z</updated>
+    <content type="html"><![CDATA[<p>1981年3月由加藤正幸创立，最早为美国苹果电脑在日本的代理经销商。<strong>Falcom</strong>的名称来至于《星际大战》中的千年隼号（Millennium <strong>Falcon</strong>）与电脑（Computer）的“<strong>COM</strong>”结合而成。</p>
+<p>我认知Falcom 应该是从 双星物语1 开始的.. 当时对卡通画风游戏大爱.但是这游戏难度略大.很久以后才通关的.</p>
+<p>然后应该就是 伊苏系列了. 从2003年的伊苏6 PC版开始一直玩.一直到 2009年的伊苏.起源(至今还有dvd的盘在.)</p>
+<p>然后自己寻找了下他的历史游戏 就 开始玩卡卡三部曲了&#8230;</p>
+<p>如今 在PC游戏一直没落的现在.Falcom好像也不能发力了. 只有在 游戏机平台看到他了&#8230;</p>
+<p>其实最好玩的还是 双星1和 伊苏7了&#8230;.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>1981年3月由加藤正幸创立，最早为美国苹果电脑在日本的代理经销商。<strong>Falcom</strong>的名称来至于《星际大战》中的千年隼号（Millennium <strong>Falcon</strong>）与电脑（Computer）的“<strong>COM]]>
+    </summary>
+    
+      <category term="游戏" scheme="http://blog.duyao.de/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+      <category term="日记" scheme="http://blog.duyao.de/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[sync dinner by au.]]></title>
+    <link href="http://blog.duyao.de/post/sync-dinner-by-au.html"/>
+    <id>http://blog.duyao.de/post/sync-dinner-by-au.html</id>
+    <published>2014-12-21T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.593Z</updated>
+    <content type="html"><![CDATA[<p>在看youtube的无意中看到一个X&#8217;mas相关的广告.说是日本给在远离在不同城市的人一次共通进餐的机会.</p>
+<p>视频内一个人在东京一个人在大阪,同一个服务小哥来回倒酒,还可以隔空吹蜡烛,最后还能拍照,这到底是什么黑科技&#8230;. 最后体验这个活动需要预约,然后活动在12.24日开始给有预约的客户进行体验.</p>
+<p>详细戳 <span style="color: #ff0000;"><strong><a style="color: #ff0000;" href="http://connect.kddi.com/syncdinner/sp/" target="_blank">这里</a></strong></span></p>
+<p>不方便的同学看这里的宣传还有视频<a id="more"></a></p>
+<p>网页截图 戳 <strong><span style="color: #ff0000;"><a style="color: #ff0000;" href="https://ws1.sinaimg.cn/large/677ca070jw1eniq37pdz8j20vg2g8dru.jpg" target="_blank">这里</a>　</span></strong><span style="color: #000000;">视频在最后</span></p>
+<p><a href="https://ws1.sinaimg.cn/large/677ca070jw1eniq37pdz8j20vg2g8dru.jpg" target="_blank" rel="external"><img class="alignnone" src="https://ws1.sinaimg.cn/large/677ca070jw1eniq37pdz8j20vg2g8dru.jpg" alt="" width="640" height="1800"></a></p>
+<p>介绍视频直接看</p>
+<p>SYNC DINNER</p>
+<div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-869-5" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://s3.amazonaws.com/f.cl.ly/items/3Q133S2K233X08383D1c/SYNCDINNER.mp4"><a href="https://cloud4cloud.sinaapp.com/file/a45a76147728e4135088d6860a7607c8/SYNCDINNER.mp4" target="_blank" rel="external">https://cloud4cloud.sinaapp.com/file/a45a76147728e4135088d6860a7607c8/SYNCDINNER.mp4</a></video><br></div>
+
+<p>&nbsp;</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在看youtube的无意中看到一个X&#8217;mas相关的广告.说是日本给在远离在不同城市的人一次共通进餐的机会.</p>
+<p>视频内一个人在东京一个人在大阪,同一个服务小哥来回倒酒,还可以隔空吹蜡烛,最后还能拍照,这到底是什么黑科技&#8230;. 最后体验这个活动需要预约,然后活动在12.24日开始给有预约的客户进行体验.</p>
+<p>详细戳 <span style="color: #ff0000;"><strong><a style="color: #ff0000;" href="http://connect.kddi.com/syncdinner/sp/" target="_blank">这里</a></strong></span></p>
+<p>不方便的同学看这里的宣传还有视频]]>
+    
+    </summary>
+    
+      <category term="圣诞" scheme="http://blog.duyao.de/tags/%E5%9C%A3%E8%AF%9E/"/>
+    
+      <category term="日本" scheme="http://blog.duyao.de/tags/%E6%97%A5%E6%9C%AC/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[刀剑神域-桐人的黑刀制作过程.]]></title>
+    <link href="http://blog.duyao.de/post/generate-sao-kirito-weapon.html"/>
+    <id>http://blog.duyao.de/post/generate-sao-kirito-weapon.html</id>
+    <published>2014-11-28T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.573Z</updated>
+    <content type="html"><![CDATA[<p>看到这个标题我也震惊了&#8230;. 转自 <a href="https://www.youtube.com" target="_blank">YouTube</a></p>
+<p>【夢幻鐵工廠】刀劍神域 桐人的黑刀-闡釋者</p>
+<div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-866-4" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4"><a href="https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4" target="_blank" rel="external">https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4</a></video><br></div>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>看到这个标题我也震惊了&#8230;. 转自 <a href="https://www.youtube.com" target="_blank">YouTube</a></p>
+<p>【夢幻鐵工廠】刀劍神域 桐人的黑刀-闡釋者</p>
+<div style="width: ]]>
+    </summary>
+    
+      <category term="eyun" scheme="http://blog.duyao.de/tags/eyun/"/>
+    
+      <category term="游戏" scheme="http://blog.duyao.de/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[曾经是多么的美好]]></title>
+    <link href="http://blog.duyao.de/post/the-past-time-is-better.html"/>
+    <id>http://blog.duyao.de/post/the-past-time-is-better.html</id>
+    <published>2014-11-25T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.273Z</updated>
+    <content type="html"><![CDATA[<p>公元1996年.我还是一个小P孩,但是,已经享受上了 上网的乐趣.当时使用拨号56k的蜗牛速度.各种玩.当打不开网页的时候,首先就觉得,哼,肯定是人家出问题了.</p>
+<p>公元2014年,我已经是个中年人了.而且,享受着50M的飞一样的速度,依然各种玩,只不过当打不开网页的时候,首先会觉得是我自己姿势不对.需要换一个姿势.</p>
+<p>哎&#8230;物是人非啊.<a id="more"></a></p>
+<p>于是就有了 WNDR4300 的 诞生,从昨天快递拿到后到今天我坐在电脑前写这个文章.经历了以下几个过程</p>
+<p>1.自带管理界面设置好了.但是发现端口转发界面不能添加条目.于是动手刷了一个网上的OpenWrt</p>
+<p>2.成功刷好了.结果没有了Web管理界面,蛋疼的用SSH 又重新下载了一个 石像鬼 的ROM,在Console下刷成功了.</p>
+<p>3.然后调整了下 上网姿势.</p>
+<p>4.姿势教程和自己的 石像鬼连接如下.</p>
+<p><a href="https://file.duyao.de/list/gargoyle/" target="_blank">https://file.duyao.de/list/gargoyle/</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公元1996年.我还是一个小P孩,但是,已经享受上了 上网的乐趣.当时使用拨号56k的蜗牛速度.各种玩.当打不开网页的时候,首先就觉得,哼,肯定是人家出问题了.</p>
+<p>公元2014年,我已经是个中年人了.而且,享受着50M的飞一样的速度,依然各种玩,只不过当打不开网页的时候,首先会觉得是我自己姿势不对.需要换一个姿势.</p>
+<p>哎&#8230;物是人非啊.]]>
+    
+    </summary>
+    
+      <category term="openwrt" scheme="http://blog.duyao.de/tags/openwrt/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[麻枝准×やなぎなぎ - 火吹き山の魔法使い]]></title>
+    <link href="http://blog.duyao.de/post/maedajun-hibukiyama-no-mahoutukai.html"/>
+    <id>http://blog.duyao.de/post/maedajun-hibukiyama-no-mahoutukai.html</id>
+    <published>2014-10-25T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.369Z</updated>
+    <content type="html"><![CDATA[<p>好像这货的 短片中就没有能不 便当的啊&#8230;.但是还是推荐&#8230;</p>
+<p>麻枝 准×やなぎなぎ 「火吹き山の魔法使い」的中文字幕版本</p>
+<p>專輯開箱文:<a class="yt-uix-redirect-link" dir="ltr" title="http://home.gamer.com.tw/creationDetail.php?sn=1604317" href="http://home.gamer.com.tw/creationDetail.php?sn=1604317" target="_blank" rel="nofollow">http://home.gamer.com.tw/creationDeta&#8230;</a></p>
+<p>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<wbr>­&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<wbr>­­­­­­­</p>
+<p>公式サイト:<a class="yt-uix-redirect-link" dir="ltr" title="http://flaming-june.com/001/lovesong2" href="http://flaming-june.com/001/lovesong2" target="_blank" rel="nofollow">http://flaming-june.com/001/lovesong2</a><br>公式ブログ:<a class="yt-uix-redirect-link" dir="ltr" title="http://flaming-june.com/blog/" href="http://flaming-june.com/blog/" target="_blank" rel="nofollow">http://flaming-june.com/blog/</a><br>公式ツイッター:<a class="yt-uix-redirect-link" dir="ltr" title="http://twitter.com/#!/FJ_Staff" href="http://twitter.com/#!/FJ_Staff" target="_blank" rel="nofollow">http://twitter.com/#!/FJ_Staff</a></p>
+<div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-862-3" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://file.duyao.de/ms/63181/AAowNphBKqJAQ_g/ifubukiyama_no_mahoutsukai.mp4"><a href="https://file.duyao.de/ms/63181/AAowNphBKqJAQ_g/ifubukiyama_no_mahoutsukai.mp4" target="_blank" rel="external">https://file.duyao.de/ms/63181/AAowNphBKqJAQ_g/ifubukiyama_no_mahoutsukai.mp4</a></video><br></div>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>好像这货的 短片中就没有能不 便当的啊&#8230;.但是还是推荐&#8230;</p>
+<p>麻枝 准×やなぎなぎ 「火吹き山の魔法使い」的中文字幕版本</p>
+<p>專輯開箱文:<a class="yt-uix-redirect-link" dir="ltr" titl]]>
+    </summary>
+    
+      <category term="eyun" scheme="http://blog.duyao.de/tags/eyun/"/>
+    
+      <category term="html5" scheme="http://blog.duyao.de/tags/html5/"/>
+    
+      <category term="やなぎなぎ" scheme="http://blog.duyao.de/tags/%E3%82%84%E3%81%AA%E3%81%8E%E3%81%AA%E3%81%8E/"/>
+    
+      <category term="麻枝准" scheme="http://blog.duyao.de/tags/%E9%BA%BB%E6%9E%9D%E5%87%86/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[简单的开启 Google Now的方法]]></title>
+    <link href="http://blog.duyao.de/post/simple-way-to-enable-google-now.html"/>
+    <id>http://blog.duyao.de/post/simple-way-to-enable-google-now.html</id>
+    <published>2014-10-16T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.381Z</updated>
+    <content type="html"><![CDATA[<p>由于昨天 大谷歌 修改了 Google Now的 开启条件.导致了很多用户因为是中文的UI被强制关闭了Google Now的功能.</p>
+<p>下面说一下相对比较简单的开启方法. <span style="color: #ff0000;">前提条件 你已经 root了你的手机.</span></p>
+<p>1.去应用列表里把Google Search 的数据 清除,然后强制停止.</p>
+<p>2.用钛备份之类的工具 删除Google Search 的程序,或者直接用Root Explorer 去/System/priv-app/ 下删除Velvet.apk 这个文件(<span style="color: #ff0000;">我是直接删除的apk</span>)</p>
+<p>&nbsp;</p>
+<p><a id="more"></a> 3.然后把系统改成英文. </p>
+<p><span style="color: #ff0000;">如果你手机的启动器(就是桌面管理器)是Google 自带的那个Google Now Launcher 的话,在重启前一定要换一个别的任意第三方的启动器,否则重启后 可能导致 Google的哪个启动器由于Google Search没有了而不能启动.就看不到桌面了&#8230;.(保险起见还是换一个.)</span></p>
+<p>4.然后重启你的手机.</p>
+<p>5.然后去下载旧版本的Velvet.apk  并安装. <a href="//sae.duyao.de/file/11b22e316d24e1698cfa54a3a72785a8/Velvet.apk" target="_blank">戳这里</a></p>
+<p>6.打开Google Search , 直接就可以启用 Google Now 了.</p>
+<p>7.最后等google 推送最新版的 Google Search 就可以了</p>
+<p>8.Enjoy !!</p>
+<p>整个人都萌萌哒</p>
+<p>PS: 可以用App Setting 把Google Search 这个程序设置成英文.然后系统整体是中文,<span style="color: #ff0000;"><strong>测试可行</strong></span>.</p>
+<p><span style="color: #3366ff;">另外,位置服务如果被禁用的话 需要 <a style="color: #3366ff;" href="http://coolapk.com/apk/com.marketunlocker.free" target="_blank">去这里</a> 下载 Market Unlocker 然后模拟成美国运营商.手动清除 Google Search 数据 然后重启即可.</span></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>由于昨天 大谷歌 修改了 Google Now的 开启条件.导致了很多用户因为是中文的UI被强制关闭了Google Now的功能.</p>
+<p>下面说一下相对比较简单的开启方法. <span style="color: #ff0000;">前提条件 你已经 root了你的手机.</span></p>
+<p>1.去应用列表里把Google Search 的数据 清除,然后强制停止.</p>
+<p>2.用钛备份之类的工具 删除Google Search 的程序,或者直接用Root Explorer 去/System/priv-app/ 下删除Velvet.apk 这个文件(<span style="color: #ff0000;">我是直接删除的apk</span>)</p>
+<p>&nbsp;</p>
+<p>]]>
+    
+    </summary>
+    
+      <category term="Google" scheme="http://blog.duyao.de/tags/Google/"/>
+    
+      <category term="Google Now" scheme="http://blog.duyao.de/tags/Google-Now/"/>
+    
+      <category term="android" scheme="http://blog.duyao.de/tags/android/"/>
+    
+      <category term="eyun" scheme="http://blog.duyao.de/tags/eyun/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【高萌反应】帧帧都可当壁纸的车模MIKU酱！※XYZ的魔法※]]></title>
+    <link href="http://blog.duyao.de/post/miku-xyz-magic.html"/>
+    <id>http://blog.duyao.de/post/miku-xyz-magic.html</id>
+    <published>2014-10-14T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.485Z</updated>
+    <content type="html"><![CDATA[<p>来自b站的介绍</p>
+<p>自制 你们死定了，我已经在屏幕上涂毒了！！！</p>
+<div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-856-2" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4"><a href="https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4" target="_blank" rel="external">https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4</a></video><br></div>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>来自b站的介绍</p>
+<p>自制 你们死定了，我已经在屏幕上涂毒了！！！</p>
+<div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-]]>
+    </summary>
+    
+      <category term="eyun" scheme="http://blog.duyao.de/tags/eyun/"/>
+    
+      <category term="miku" scheme="http://blog.duyao.de/tags/miku/"/>
+    
+      <category term="网络资源" scheme="http://blog.duyao.de/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[简单安装Windows 10 的办法]]></title>
+    <link href="http://blog.duyao.de/post/install-windows-10-in-a-vhd-file.html"/>
+    <id>http://blog.duyao.de/post/install-windows-10-in-a-vhd-file.html</id>
+    <published>2014-10-01T16:00:00.000Z</published>
+    <updated>2016-09-25T06:22:53.601Z</updated>
+    <content type="html"><![CDATA[<p>微软今日如约放出了Windows <del>9</del> 10技术预览版的下载，大家现在就可以免费下载Windows 10技术预览版ISO文件，安装并开启体验。Windows 10技术预览版首批提供了英语、简体中文、葡萄牙语，含32位、64位。</p>
+<p>就感觉 开始菜单变了.然后打开窗口和关闭窗口的时候多了点动画效果.其他没有特别感觉.</p>
+<p>后来还是回到Windows 8.1了.</p>
+<p>下面来说说简单绿色的安装办法.</p>
+<p>首先你要先从这里下载一个叫 VHD_OneKey的软件</p>
+<p><a href="https://app.yinxiang.com/shard/s40/sh/1ad7a266-82d9-4708-af18-73b8b9b1c069/0593ecbe617387348fed979e97851511" target="_blank">VHD_OneKey_121001.rar</a></p>
+<p>然后假设你需要用20G的系统盘来体验Windows 10,那你需要有一个剩余容量在20G以上的分区就可以了.</p>
+<p>然后打开这个软件,选择创建VHD文件,然后选择vhd文件的路径,记得剩余容量要比你创建的vhd容量大就可以了.</p>
+<p>然后再从iso文件的source文件夹下选择install.wim文件,镜像编号记得选第一个.<span style="color: #ff0000;"><strong>第二个镜像是没有办法使用官方给你的测试序列号的.</strong></span></p>
+<p>然后确定后一直等到工具提示完成.</p>
+<p>随后点到挂载vhd,选择刚才生成的vhd文件,再点添加启动项到BCD. 然后重启你的电脑,选择新添加的启动项就开始安装Windows 10了.</p>
+<p>&nbsp;</p>
+<p>最后需要提醒的是,通过OneKey生成的vhd文件默认是mbr格式的磁盘. 所以使用UEFI启动的 需要修改bios设置开启兼容模式来使用mbr的磁盘启动.</p>
+<p>也可以用windows 8或者8.1 来新建vhd,详细在磁盘管理里就可以新建.然后使用 NT6.0安装器来安装. 最后用OneKey来添加启动项即可.</p>
+<p>&nbsp;</p>
+<p>另外,如果不喜欢要删掉的话,只要回到之前的系统,删除掉启动项,然后直接把vhd文件干掉就彻底删掉了.非常方便</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>微软今日如约放出了Windows <del>9</del> 10技术预览版的下载，大家现在就可以免费下载Windows 10技术预览版ISO文件，安装并开启体验。Windows 10技术预览版首批提供了英语、简体中文、葡萄牙语，含32位、64位。</p>
+<p>就感觉 开始]]>
+    </summary>
+    
+      <category term="windows" scheme="http://blog.duyao.de/tags/windows/"/>
+    
+      <category term="印象笔记" scheme="http://blog.duyao.de/tags/%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+</feed>

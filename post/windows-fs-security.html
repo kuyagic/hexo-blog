@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="生于秋深。性喜静，意清幽。爱之切，怨亦深。本质轻名利，但拥有成名得利的天赋。 偏重灵与肉的完美结合。直觉力之准之锐，行动力之潇洒之特,常令徒有虚表之人忌愤不已。"><title>Windows数据安全教程之EFS | 毒药的BLOG</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"><link rel="manifest" href="/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><script type="text/javascript" src="//elb.duyao.de/js/ps.js"></script><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Windows数据安全教程之EFS</h1><a id="logo" href="/.">毒药的BLOG</a><p class="description">记录生活,分享快乐,了解技术</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Windows数据安全教程之EFS</h1><div class="post-meta">Aug 6, 2016<span> | </span><span class="category"><a href="/categories/日记/">日记</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="post/windows-fs-security.html" href="/post/windows-fs-security.html#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><h2 id="什么是EFS加密">什么是EFS加密</h2><blockquote>
+<p>EFS加密是基于公钥策略的。</p>
+</blockquote>
+<p>EFS加密系统对用户是透明的。这也就是说，如果你加密了一些数据，那么你对这些数据的访问将是完全允许的，并不会受到任何限制。而其他非授权用户试图访问加密过的数据时，就会收到“访问拒绝”的错误提示。EFS加密的用户验证过程是在登录Windows时进行的，只要登录到Windows，就可以打开任何一个被授权的加密文件。</p>
+<h2 id="如何加密文件">如何加密文件</h2><blockquote>
+<p>为了保证数据安全，推荐在移动硬盘上加密私人文件。</p>
+</blockquote>
+<ul>
+<li>确认所需要加密的文件是保存在 <code>NTFS</code> 分区上。</li>
+<li>另外最好是把需要加密的文件放在几个文件夹里。磁盘根目录不适合放需要加密的文件。当然也能针对一个文件进行下面的加密操作。<a id="more"></a></li>
+</ul>
+<ul>
+<li>在需要加密的文件夹上点右键，选择属性，然后勾选如图的勾，并点OK，然后点属性窗口的应用，然后选择应用到子文件夹和文件。视文件夹大小所需时间不同。最好是预先建立好空文件夹，然后把需要加密保护的文件放在这个文件夹内即可。</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577ccaf31a2cd.png" alt=""></p>
+</li>
+<li><p>加密完成后，系统应该会提示需要备份加密的证书。此时只要按照向导把证书备份到一个地方就可以了。期间需要输入保护证书的密码 </p>
+</li>
+<li><strong><code>密码很重要，在更换系统（电脑）或者重装系统后需要重新导入以解密之前加密的文件，导入证书时需要输入此密码，务必牢记</code></strong>  </li>
+</ul>
+<h2 id="备份加密的证书">备份加密的证书</h2><ul>
+<li>如果系统没有提示备份证书。则需要手动备份，步骤如下</li>
+<li><p>点击开始-&gt;运行,输入 certmgr.msc,然后回车，在左窗格展开“个人”/“证书”目录。如下图所示。</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cccfe46c3d.png" alt=""></p>
+</li>
+<li><p>我们需要的是<strong>预期目的</strong>被标记为<strong>加密文件系统</strong>的证书，在备份的时候记得不要选错了。，然后右键 选择<code>所有任务-&gt;导出</code>选项，然后在</p>
+</li>
+<li><p>欢迎使用证书导出向导对话框中单击<code>下一步</code>按钮。</p>
+</li>
+<li><p>然后在选择是否导出私钥的时候,务必选择 <strong><code>是</code></strong> ，然后选择保存位置。最后点导出。</p>
+</li>
+<li><p>看到导出成功后，应该能在保存位置看到一个 扩展名是<code>pfx</code>的文件，如果没有开启显示已知的扩展名的话应该看不到<code>pfx</code>，但是会有如图的这个图标 <img src="https://ooo.0o0.ooo/2016/07/06/577ccdf96219f.png" alt=""></p>
+</li>
+<li><p><em>可选安全操作步骤</em></p>
+<ul>
+<li><em>删除已经导出的这个证书，然后双击导出的这个<code>pfx</code>文件重新导入，在如下操作框内，不要勾选允许导出私钥，以保证不被他人恶意导出私钥用来解密你的文件</em><ul>
+<li><img src="https://ooo.0o0.ooo/2016/07/06/577ccee92d707.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置灾难恢复证书">配置灾难恢复证书</h2><blockquote>
+<p>为了防止之前导出的证书丢失，导致加密的文件不能访问，可以在系统里配置另外一个恢复证书，每次使用主证书加密文件的时候会把恢复证书信息也添加到加密后的文件中以保证灾难时能正常恢复加密的文件。<br>另外 需要<code>Windows7 旗舰版</code> 才能使用恢复代理 功能。</p>
+</blockquote>
+<ul>
+<li>依次点击开始<code>-&gt;</code>运行，输入<code>secpol.msc</code>，然后回车，以打开“本地安全策略”。</li>
+<li><p>单击“公钥策略”，右键单击“加密文件系统”，然后单击“添加数据恢复代理程序”。此操作将打开添加故障恢复代理向导，直接点击下一步。</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cd06c3eb5b.png" alt=""></p>
+</li>
+<li><p>然后在下一个窗口点击浏览选择和<strong>这个PDF文件</strong>一起的<code>recovery.cer</code>证书文件</p>
+</li>
+<li><p><img src="https://ooo.0o0.ooo/2016/07/06/577cd10eaaabe.png" alt=""></p>
+</li>
+<li><p>随后在下一个警告窗口中直接点<code>确定</code>就能导入恢复证书，导入完成后如之前那张图所示有一个<code>Chinni</code>的证书就表示成功。</p>
+</li>
+<li><p>最后需要刷新下策略，依次点击开始<code>-&gt;</code>运行，cmd，然后在命令行窗口里直接输入<code>gpupdate</code>，然后回车，稍等片刻就可以了。</p>
+</li>
+</ul>
+<h2 id="配置新设备">配置新设备</h2><blockquote>
+<p>在新的机器上使用移动硬盘，需要先安装之前导出的证书文件，然后最好配置灾难回复证书，然后再在新设备上操作加密的文件/文件夹。</p>
+</blockquote>
+<ul>
+<li>如果遇到系统重装，或者需要在新的电脑上使用已加密的文件则需要导入之前备份的<code>pfx</code>证书即可。导入的时候需要提供之前导出证书时候输入的密码。</li>
+</ul>
+<h2 id="参考文档">参考文档</h2><ul>
+<li><a href="http://baike.baidu.com/view/43143.htm" target="_blank" rel="external">百度百科</a></li>
+</ul>
+<h2 id="其他注意事项">其他注意事项</h2><ul>
+<li>视频文件，例如电影什么的可以不加密就不要加密。主要加密的是自有数据。比如文档照片之类的。</li>
+<li>另外比较推荐 坚果云（<a href="https://www.jianguoyun.com）" target="_blank" rel="external">https://www.jianguoyun.com）</a> 这个服务。大家可以去注册一个账号试用一下。可以把任意系统上的文件夹同步到网络。也有版本控制，能保留30天内的文件变更的历史版本。一般免费版够用。</li>
+</ul>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://blog.duyao.de/post/windows-fs-security.html" data-id="ciwvez52900060agponchzba5" class="article-share-link">分享至</a><div class="tags"><a href="/tags/windows/">windows</a><a href="/tags/加密/">加密</a></div><div class="post-nav"><a href="/post/a-competitive-jpg-compression-tool.html" class="next">JPG无损压缩工具介绍</a></div><div id="disqus_thread"><script>var disqus_shortname = 'duyao-blog';
+var disqus_identifier = 'post/windows-fs-security.html';
+var disqus_title = 'Windows数据安全教程之EFS';
+var disqus_url = 'http://blog.duyao.de/post/windows-fs-security.html';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//duyao-blog.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://blog.duyao.de"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/Office/" style="font-size: 15px;">Office</a><a href="/tags/windows/" style="font-size: 15px;">windows</a><a href="/tags/工具/" style="font-size: 15px;">工具</a><a href="/tags/技巧/" style="font-size: 15px;">技巧</a><a href="/tags/程序/" style="font-size: 15px;">程序</a><a href="/tags/Linux/" style="font-size: 15px;">Linux</a><a href="/tags/nginx/" style="font-size: 15px;">nginx</a><a href="/tags/软件/" style="font-size: 15px;">软件</a><a href="/tags/Google/" style="font-size: 15px;">Google</a><a href="/tags/Android/" style="font-size: 15px;">Android</a><a href="/tags/游戏/" style="font-size: 15px;">游戏</a><a href="/tags/动画/" style="font-size: 15px;">动画</a><a href="/tags/漫画/" style="font-size: 15px;">漫画</a><a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a><a href="/tags/免费/" style="font-size: 15px;">免费</a><a href="/tags/日本/" style="font-size: 15px;">日本</a><a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a><a href="/tags/android/" style="font-size: 15px;">android</a><a href="/tags/lollipop/" style="font-size: 15px;">lollipop</a><a href="/tags/xposed/" style="font-size: 15px;">xposed</a><a href="/tags/圣诞/" style="font-size: 15px;">圣诞</a><a href="/tags/eyun/" style="font-size: 15px;">eyun</a><a href="/tags/openwrt/" style="font-size: 15px;">openwrt</a><a href="/tags/html5/" style="font-size: 15px;">html5</a><a href="/tags/やなぎなぎ/" style="font-size: 15px;">やなぎなぎ</a><a href="/tags/麻枝准/" style="font-size: 15px;">麻枝准</a><a href="/tags/Google-Now/" style="font-size: 15px;">Google Now</a><a href="/tags/miku/" style="font-size: 15px;">miku</a><a href="/tags/印象笔记/" style="font-size: 15px;">印象笔记</a><a href="/tags/域名/" style="font-size: 15px;">域名</a><a href="/tags/创意/" style="font-size: 15px;">创意</a><a href="/tags/网络/" style="font-size: 15px;">网络</a><a href="/tags/图片/" style="font-size: 15px;">图片</a><a href="/tags/SIP/" style="font-size: 15px;">SIP</a><a href="/tags/留学/" style="font-size: 15px;">留学</a><a href="/tags/美国/" style="font-size: 15px;">美国</a><a href="/tags/假期/" style="font-size: 15px;">假期</a><a href="/tags/flash/" style="font-size: 15px;">flash</a><a href="/tags/文件下载/" style="font-size: 15px;">文件下载</a><a href="/tags/同步/" style="font-size: 15px;">同步</a><a href="/tags/国内/" style="font-size: 15px;">国内</a><a href="/tags/网盘/" style="font-size: 15px;">网盘</a><a href="/tags/测试/" style="font-size: 15px;">测试</a><a href="/tags/备份/" style="font-size: 15px;">备份</a><a href="/tags/数据/" style="font-size: 15px;">数据</a><a href="/tags/总结/" style="font-size: 15px;">总结</a><a href="/tags/vps/" style="font-size: 15px;">vps</a><a href="/tags/raspberry/" style="font-size: 15px;">raspberry</a><a href="/tags/apple/" style="font-size: 15px;">apple</a><a href="/tags/cdn/" style="font-size: 15px;">cdn</a><a href="/tags/dns/" style="font-size: 15px;">dns</a><a href="/tags/存储/" style="font-size: 15px;">存储</a><a href="/tags/科技/" style="font-size: 15px;">科技</a><a href="/tags/lowend/" style="font-size: 15px;">lowend</a><a href="/tags/旋风分享/" style="font-size: 15px;">旋风分享</a><a href="/tags/电影/" style="font-size: 15px;">电影</a><a href="/tags/bitcasa/" style="font-size: 15px;">bitcasa</a><a href="/tags/内存/" style="font-size: 15px;">内存</a><a href="/tags/BDRip/" style="font-size: 15px;">BDRip</a><a href="/tags/bt/" style="font-size: 15px;">bt</a><a href="/tags/emule/" style="font-size: 15px;">emule</a><a href="/tags/日剧/" style="font-size: 15px;">日剧</a><a href="/tags/新海诚/" style="font-size: 15px;">新海诚</a><a href="/tags/screen-shot/" style="font-size: 15px;">screen shot</a><a href="/tags/tools/" style="font-size: 15px;">tools</a><a href="/tags/epub/" style="font-size: 15px;">epub</a><a href="/tags/小说/" style="font-size: 15px;">小说</a><a href="/tags/jpeg/" style="font-size: 15px;">jpeg</a><a href="/tags/jpg/" style="font-size: 15px;">jpg</a><a href="/tags/Mac/" style="font-size: 15px;">Mac</a><a href="/tags/Amazon-S3/" style="font-size: 15px;">Amazon S3</a><a href="/tags/ftp/" style="font-size: 15px;">ftp</a><a href="/tags/sftp/" style="font-size: 15px;">sftp</a><a href="/tags/webdav/" style="font-size: 15px;">webdav</a><a href="/tags/backup/" style="font-size: 15px;">backup</a><a href="/tags/GoogleDrive/" style="font-size: 15px;">GoogleDrive</a><a href="/tags/dropbox/" style="font-size: 15px;">dropbox</a><a href="/tags/多媒体/" style="font-size: 15px;">多媒体</a><a href="/tags/webm/" style="font-size: 15px;">webm</a><a href="/tags/chrome/" style="font-size: 15px;">chrome</a><a href="/tags/twitter/" style="font-size: 15px;">twitter</a><a href="/tags/Symantec/" style="font-size: 15px;">Symantec</a><a href="/tags/管理工具/" style="font-size: 15px;">管理工具</a><a href="/tags/zone/" style="font-size: 15px;">zone</a><a href="/tags/Cloud/" style="font-size: 15px;">Cloud</a><a href="/tags/恐怖/" style="font-size: 15px;">恐怖</a><a href="/tags/悬疑/" style="font-size: 15px;">悬疑</a><a href="/tags/推理/" style="font-size: 15px;">推理</a><a href="/tags/廉价/" style="font-size: 15px;">廉价</a><a href="/tags/生活/" style="font-size: 15px;">生活</a><a href="/tags/加密/" style="font-size: 15px;">加密</a><a href="/tags/sdo/" style="font-size: 15px;">sdo</a><a href="/tags/加速器/" style="font-size: 15px;">加速器</a><a href="/tags/Amazon/" style="font-size: 15px;">Amazon</a><a href="/tags/SEO/" style="font-size: 15px;">SEO</a><a href="/tags/安全性/" style="font-size: 15px;">安全性</a><a href="/tags/密码学/" style="font-size: 15px;">密码学</a><a href="/tags/MVC/" style="font-size: 15px;">MVC</a><a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a><a href="/tags/日文/" style="font-size: 15px;">日文</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/post/windows-fs-security.html">Windows数据安全教程之EFS</a></li><li class="post-list-item"><a class="post-list-link" href="/post/a-competitive-jpg-compression-tool.html">JPG无损压缩工具介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/post/http2-with-nginx.html">为 Nginx 添加 HTTP/2 的技能加持</a></li><li class="post-list-item"><a class="post-list-link" href="/post/intro-to-password-manager-enpass.html">密码管理软件Enpass介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/post/install-lnmp-on-ubuntu.html">在Ubuntu上编译安装PHP和Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/post/nexus-6.html">nexus-6</a></li><li class="post-list-item"><a class="post-list-link" href="/post/a-wonderful-seed-game.html">奇妙种子养成计划</a></li><li class="post-list-item"><a class="post-list-link" href="/post/kimiuso-fin.html">四月是你的谎言完结</a></li><li class="post-list-item"><a class="post-list-link" href="/post/favorite-mark-down-editor-on-windows.html">中意的Markdown编辑器</a></li><li class="post-list-item"><a class="post-list-link" href="/post/xdomain-free-web-hosting.html">xdomain提供的免费空间</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//duyao-blog.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">毒药的BLOG.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
