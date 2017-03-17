@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录生活,分享快乐,了解技术]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.duyao.de/"/>
-  <updated>2016-09-25T06:22:53.525Z</updated>
+  <updated>2016-09-25T06:22:53.000Z</updated>
   <id>http://blog.duyao.de/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.duyao.de/post/windows-fs-security.html"/>
     <id>http://blog.duyao.de/post/windows-fs-security.html</id>
     <published>2016-08-06T06:07:59.000Z</published>
-    <updated>2016-09-25T06:22:53.525Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<h2 id="什么是EFS加密">什么是EFS加密</h2><blockquote>
 <p>EFS加密是基于公钥策略的。</p>
 </blockquote>
@@ -121,7 +121,7 @@
     <link href="http://blog.duyao.de/post/a-competitive-jpg-compression-tool.html"/>
     <id>http://blog.duyao.de/post/a-competitive-jpg-compression-tool.html</id>
     <published>2016-07-04T02:38:00.000Z</published>
-    <updated>2016-09-25T06:22:53.469Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>大家都知道JPG是一个图片格式.已经经过了优化和压缩.所以在分享很多图片的时候一般都直接打包选择不压缩.然后主要是可以变成一个文件方便分享.因为确实目前大众化的压缩格式比如 <code>zip</code> <code>7z</code> <code>rar</code>都不能很好的压缩图片。 <a id="more"></a> </p>
 <p>以前在逛 <a href="http://www.maximumcompression.com/data/jpg.php" target="_blank" rel="external">​maximumcompression</a> 的时候凑巧也看到了一个新的JPG算法.压缩率可以在 70% ~ 85% 之间.比起之前传统压缩软件的 99% ~ 101% 要好太多了.  </p>
 <p>自己粗略的找了下 然后在 <code>GitHub</code> 上找到了这个名字叫 <a href="https://github.com/packjpg/packARC" target="_blank" rel="external">PackARC</a> 的软件.意外的它除了能更好的处理 JPG 格式以外,还能优化 MP3 和 BMP 格式.  </p>
@@ -149,7 +149,7 @@
     <link href="http://blog.duyao.de/post/http2-with-nginx.html"/>
     <id>http://blog.duyao.de/post/http2-with-nginx.html</id>
     <published>2016-01-01T16:58:01.000Z</published>
-    <updated>2016-09-25T06:22:53.469Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>今年5月份吧…好像是, HTTP/2 的协议正式版出来了. 替代了之前一直是测试的spdy的协议</p>
 <p>下面我们来为nginx添加这个协议的支持.<br> 本文章是使用 Tengine的这个nginx的mod 版本来做的.<br>  首先从 <a href="https://www.github.com" target="_blank" rel="external">github</a> 上下载源码<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="string">https:</span><span class="comment">//github.com/alibaba/tengine.git</span></span><br></pre></td></tr></table></figure></p>
 <p>然后在 configure的时候需要加2个配置参数</p>
@@ -203,7 +203,7 @@
     <link href="http://blog.duyao.de/post/intro-to-password-manager-enpass.html"/>
     <id>http://blog.duyao.de/post/intro-to-password-manager-enpass.html</id>
     <published>2015-12-28T14:17:19.000Z</published>
-    <updated>2016-09-25T06:22:53.393Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p><img src="//enpass.io/static/media/uploads/wpcool/pc0.png" alt=""><br><a href="https://enpass.io" target="_blank" rel="external">Enpass</a>是一款密码管理工具，用户可以把一些需要记住的帐号和密码保存在这里，它采用了军用级加密术，保证了密码帐号的安全，将密码都存在这里，那么就只需要记住该软件的密码就行咯，不用担心手机掉了密码就没了的问题，因为这个是跨平台的工具，在PC上也能查找。<br><a id="more"></a><br><img src="//ooo.0o0.ooo/2015/12/28/568146d9457d1.jpeg" alt="screen800x500.jpeg"><br>另外,桌面版的客户端都是免费的,包含PC,Mac和Linux,移动版的话是一个平台10美金永久使用.相对<code>Lastpass</code>和<code>1Password</code>厚道多了..<br><img src="//enpass.io/static/media/uploads/linux/lin10.png" alt=""><br>当然也支持 Firefox/Chrome的插件<br>数据同步方面,支持几个主流的网盘,只可惜在国内只有OneDrive可以正常使用了.当然程序可以设置代理服务器,如果有<code>技巧</code>的话,我还是推荐使用Dropbox来同步.<br><img src="//ooo.0o0.ooo/2015/12/28/56814687ad840.png" alt="设置_2015-12-28_22-23-32.png"></p>
 ]]></content>
     <summary type="html">
@@ -226,7 +226,7 @@
     <link href="http://blog.duyao.de/post/install-lnmp-on-ubuntu.html"/>
     <id>http://blog.duyao.de/post/install-lnmp-on-ubuntu.html</id>
     <published>2015-09-21T02:30:42.000Z</published>
-    <updated>2016-09-25T06:22:53.461Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>在Ubuntu上编译安装PHP,Nginx <a id="more"></a>  </p>
 <h5 id="Web_Server_(Tengine)">Web Server (Tengine)</h5><p>第一步,安装依赖包<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> install git build-essential m4 autoconf libxml2-<span class="built_in">dev</span> libssl-<span class="built_in">dev</span> libbz2-<span class="built_in">dev</span> \</span><br><span class="line">libcurl3-<span class="built_in">dev</span> libdb5<span class="number">.1</span>-<span class="built_in">dev</span> libjpeg-<span class="built_in">dev</span> libpng-<span class="built_in">dev</span> libXpm-<span class="built_in">dev</span> libfreetype6-<span class="built_in">dev</span> \</span><br><span class="line">libt1-<span class="built_in">dev</span> libgmp3-<span class="built_in">dev</span> libc-client-<span class="built_in">dev</span> libldap2-<span class="built_in">dev</span> libmcrypt-<span class="built_in">dev</span> \</span><br><span class="line">libmhash-<span class="built_in">dev</span> freetds-<span class="built_in">dev</span> libz-<span class="built_in">dev</span> libmysqlclient15-<span class="built_in">dev</span> \</span><br><span class="line">ncurses-<span class="built_in">dev</span> libpcre3-<span class="built_in">dev</span> unixODBC-<span class="built_in">dev</span>  libsqlite-<span class="built_in">dev</span> libaspell-<span class="built_in">dev</span> \</span><br><span class="line">libreadline6-<span class="built_in">dev</span> librecode-<span class="built_in">dev</span> libsnmp-<span class="built_in">dev</span> libtidy-<span class="built_in">dev</span> libxslt-<span class="built_in">dev</span> \</span><br><span class="line">libt1-<span class="built_in">dev</span> libpspell-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure></p>
 <p>从这里下载最新的 Tengine 源码,然后在Linux环境下解压<br><a href="https://github.com/alibaba/tengine/archive/master.zip" target="_blank" rel="external">戳这里下载</a>,或者直接在SSH下执行以下命令<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//github.com/alibaba/tengine/archive/master.zip</span></span><br><span class="line">unzip master.<span class="keyword">zip</span></span><br><span class="line"><span class="keyword">cd</span> tengine*</span><br></pre></td></tr></table></figure></p>
@@ -267,7 +267,7 @@
     <link href="http://blog.duyao.de/post/nexus-6.html"/>
     <id>http://blog.duyao.de/post/nexus-6.html</id>
     <published>2015-05-13T13:20:48.000Z</published>
-    <updated>2016-09-25T06:22:53.601Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>在昨天.哥终于入手了 <code>Nexus 6</code> ,这到底只为何呢.其实就是在前几天的一个晚上.<br>我把我的 大中兴手机插在电脑上充电,过了一会儿,我去摸了一下,感觉好热,然后开屏一看,果然是Play Store在更新软件, 于是我就把USB线给拔掉了,之后就去泡了杯咖啡,洗了个手,往回走的时候听到了一个不科学的声音,是电脑USB设备断开的声音,我在想,尼玛这手机啥时候这么高级了,更新程序居然会自动重启么…<br>结果事实证明我错了.错的很离谱,当我赶到手机旁边的时候,我已经发现他彻底得离开了我.怎么按都点不亮了….<br>之后又尝试接了N次USB,充电N次,没效果.只能放弃.<br>最后还是入手了大Google的亲生儿子….<br><img src="https://cldup.com/FzfZC5qcgk.jpg" alt=""><br>&nbsp;&nbsp;还是Google 大气,虽然单手操作确实有点吃力.但是稳定才是王道.北美版 修改了配置后直接上电信3G没有任何问题.<br><img src="https://cldup.com/0hYcVQXh6j.jpg" alt=""></p>
 ]]></content>
     <summary type="html">
@@ -287,7 +287,7 @@
     <link href="http://blog.duyao.de/post/a-wonderful-seed-game.html"/>
     <id>http://blog.duyao.de/post/a-wonderful-seed-game.html</id>
     <published>2015-04-11T14:38:37.000Z</published>
-    <updated>2016-09-25T06:22:53.565Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>一个 奇妙的种子养成的小游戏<br>也不多说了直接上游戏.大家可以每个分支都尝试下.<br>略新(kong)意(bu)的元素<br><code></code></p>
 <p><embed src="//cloudapp.duyao.de/items/2w3s2x433P05113b1L06/mitoza.swf" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="500" height="350"><br></p>
 ]]></content>
@@ -305,7 +305,7 @@
     <link href="http://blog.duyao.de/post/kimiuso-fin.html"/>
     <id>http://blog.duyao.de/post/kimiuso-fin.html</id>
     <published>2015-03-20T13:54:39.000Z</published>
-    <updated>2016-12-19T01:19:57.676Z</updated>
+    <updated>2016-12-19T01:19:57.000Z</updated>
     <content type="html"><![CDATA[<p><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqcjgfyj2uj20jy0b8jt0.jpg" alt="">  </p>
 <p>那是他十一岁的秋天,那个被称为天才钢琴家的<code>有馬公生</code>,由于母亲的突然离世而再也不能弹琴,从那以后,他的时间静止了.然而注意到变化的青梅竹马<code>澤部椿</code>邀请他去参加了同样是公生的青梅竹马的<code>渡亮太</code>还有某个女生的双人的约会.虽然不情愿但是还是走向约定地点的公生,在那里他遇见了正在演奏口风琴,喜欢渡的少女,<code>宫园薰</code>,一个小提琴家.   </p>
 <hr>
@@ -372,7 +372,7 @@
     <link href="http://blog.duyao.de/post/favorite-mark-down-editor-on-windows.html"/>
     <id>http://blog.duyao.de/post/favorite-mark-down-editor-on-windows.html</id>
     <published>2015-03-14T03:54:41.000Z</published>
-    <updated>2016-12-19T01:20:34.096Z</updated>
+    <updated>2016-12-19T01:20:34.000Z</updated>
     <content type="html"><![CDATA[<p>算是找到了一个自己比较喜欢的 <code>Markdown</code> 编辑器了,他就是 <strong> Haroopad</strong><br>一直在Google 里用关键字 <code>markdown editor windows</code> 翻啊翻, 结果还是在第一页找到了适合自己的.<br>一开始在 Win 8.1 下运行还不成功.最后改成Win7兼容模式就可以运行了.<br>下面是几个截图</p>
 <hr>
 <p><strong> 主界面 </strong></p>
@@ -416,7 +416,7 @@
     <link href="http://blog.duyao.de/post/xdomain-free-web-hosting.html"/>
     <id>http://blog.duyao.de/post/xdomain-free-web-hosting.html</id>
     <published>2015-03-12T01:57:42.000Z</published>
-    <updated>2016-09-25T06:22:53.557Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>xdomain 一直提供免费的html,php 和 wordpress专用的 免费空间,免费容量是1G,支持绑定域名.<br>绑定域名依然是以下几种方式  </p>
 <p>改nameserver,指向xdomain的ns服务器<br>在域名根目录下放一个静态的html文件<br>往whois 里登记的 email 地址 发验证码.</p>
 <p>我已经成功开通了html的静态空间.用来放hexo也不错<br><img src="https://ws2.sinaimg.cn/large/677ca070jw1eqa486wpxwj20rz0gp7bd.jpg" alt=""></p>
@@ -448,7 +448,7 @@
     <link href="http://blog.duyao.de/post/sandboxie-4-16-x64-full.html"/>
     <id>http://blog.duyao.de/post/sandboxie-4-16-x64-full.html</id>
     <published>2015-03-01T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.481Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>Sandboxie 自从去掉了终身版授权后.就比较坑了.然后64位系统下的哈哈版进展也是要关掉驱动验证的.现在有了一个用吊销证书来签名驱动的办法.我已经把哈哈后的驱动签名好了.直接提供打包下载.</p>
 <p>下面是安装流程.<br>第一步：安装sandboxie，安装到加载驱动时暂停.</p>
 <p>第二步：复制SbieDrv.sys到程序安装文件夹.</p>
@@ -479,7 +479,7 @@
     <link href="http://blog.duyao.de/post/upgrade-to-lollipop.html"/>
     <id>http://blog.duyao.de/post/upgrade-to-lollipop.html</id>
     <published>2015-02-15T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.481Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>国产手机不容易啊. 年初的时候看到有5.0的系统,一直没有升级.是因为我一直在用Xposed的框架.因为有2个软件我是必须要用的.一个是<a href="http://repo.xposed.info/module/biz.bokhorst.xprivacy" target="_blank">Xprivacy</a>还有一个就是<a href="https://play.google.com/store/apps/details?id=com.oasisfeng.greenify&hl=zh" target="_blank">绿色守护</a>了.</p>
 <p>如今我前几天看到了Xposed框架登陆5.0系统的消息.然后今天终于在完整备份了所有4.4的系统后.尝试升级到了5.0.</p>
 <p>第一感觉.第一次开机的速度比以前刷好4.x的时候速度快了一倍多.然后就是界面流畅程度.感觉也是比4.x时代要快很多.果然art是很威武的.</p>
@@ -509,7 +509,7 @@
     <link href="http://blog.duyao.de/post/falcom-game-roadmap.html"/>
     <id>http://blog.duyao.de/post/falcom-game-roadmap.html</id>
     <published>2015-01-11T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.385Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>1981年3月由加藤正幸创立，最早为美国苹果电脑在日本的代理经销商。<strong>Falcom</strong>的名称来至于《星际大战》中的千年隼号（Millennium <strong>Falcon</strong>）与电脑（Computer）的“<strong>COM</strong>”结合而成。</p>
 <p>我认知Falcom 应该是从 双星物语1 开始的.. 当时对卡通画风游戏大爱.但是这游戏难度略大.很久以后才通关的.</p>
 <p>然后应该就是 伊苏系列了. 从2003年的伊苏6 PC版开始一直玩.一直到 2009年的伊苏.起源(至今还有dvd的盘在.)</p>
@@ -532,7 +532,7 @@
     <link href="http://blog.duyao.de/post/sync-dinner-by-au.html"/>
     <id>http://blog.duyao.de/post/sync-dinner-by-au.html</id>
     <published>2014-12-21T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.593Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>在看youtube的无意中看到一个X&#8217;mas相关的广告.说是日本给在远离在不同城市的人一次共通进餐的机会.</p>
 <p>视频内一个人在东京一个人在大阪,同一个服务小哥来回倒酒,还可以隔空吹蜡烛,最后还能拍照,这到底是什么黑科技&#8230;. 最后体验这个活动需要预约,然后活动在12.24日开始给有预约的客户进行体验.</p>
 <p>详细戳 <span style="color: #ff0000;"><strong><a style="color: #ff0000;" href="http://connect.kddi.com/syncdinner/sp/" target="_blank">这里</a></strong></span></p>
@@ -566,7 +566,7 @@
     <link href="http://blog.duyao.de/post/generate-sao-kirito-weapon.html"/>
     <id>http://blog.duyao.de/post/generate-sao-kirito-weapon.html</id>
     <published>2014-11-28T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.573Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>看到这个标题我也震惊了&#8230;. 转自 <a href="https://www.youtube.com" target="_blank">YouTube</a></p>
 <p>【夢幻鐵工廠】刀劍神域 桐人的黑刀-闡釋者</p>
 <div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-866-4" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4"><a href="https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4" target="_blank" rel="external">https://file.duyao.de/ms/63187/ACBuEPPw7Ep8p7U/sao_sword.mp4</a></video><br></div>
@@ -590,7 +590,7 @@
     <link href="http://blog.duyao.de/post/the-past-time-is-better.html"/>
     <id>http://blog.duyao.de/post/the-past-time-is-better.html</id>
     <published>2014-11-25T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.273Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>公元1996年.我还是一个小P孩,但是,已经享受上了 上网的乐趣.当时使用拨号56k的蜗牛速度.各种玩.当打不开网页的时候,首先就觉得,哼,肯定是人家出问题了.</p>
 <p>公元2014年,我已经是个中年人了.而且,享受着50M的飞一样的速度,依然各种玩,只不过当打不开网页的时候,首先会觉得是我自己姿势不对.需要换一个姿势.</p>
 <p>哎&#8230;物是人非啊.<a id="more"></a></p>
@@ -619,7 +619,7 @@
     <link href="http://blog.duyao.de/post/maedajun-hibukiyama-no-mahoutukai.html"/>
     <id>http://blog.duyao.de/post/maedajun-hibukiyama-no-mahoutukai.html</id>
     <published>2014-10-25T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.369Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>好像这货的 短片中就没有能不 便当的啊&#8230;.但是还是推荐&#8230;</p>
 <p>麻枝 准×やなぎなぎ 「火吹き山の魔法使い」的中文字幕版本</p>
 <p>專輯開箱文:<a class="yt-uix-redirect-link" dir="ltr" title="http://home.gamer.com.tw/creationDetail.php?sn=1604317" href="http://home.gamer.com.tw/creationDetail.php?sn=1604317" target="_blank" rel="nofollow">http://home.gamer.com.tw/creationDeta&#8230;</a></p>
@@ -650,7 +650,7 @@
     <link href="http://blog.duyao.de/post/simple-way-to-enable-google-now.html"/>
     <id>http://blog.duyao.de/post/simple-way-to-enable-google-now.html</id>
     <published>2014-10-16T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.381Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>由于昨天 大谷歌 修改了 Google Now的 开启条件.导致了很多用户因为是中文的UI被强制关闭了Google Now的功能.</p>
 <p>下面说一下相对比较简单的开启方法. <span style="color: #ff0000;">前提条件 你已经 root了你的手机.</span></p>
 <p>1.去应用列表里把Google Search 的数据 清除,然后强制停止.</p>
@@ -694,7 +694,7 @@
     <link href="http://blog.duyao.de/post/miku-xyz-magic.html"/>
     <id>http://blog.duyao.de/post/miku-xyz-magic.html</id>
     <published>2014-10-14T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.485Z</updated>
+    <updated>2016-09-25T06:22:53.000Z</updated>
     <content type="html"><![CDATA[<p>来自b站的介绍</p>
 <p>自制 你们死定了，我已经在屏幕上涂毒了！！！</p>
 <div style="width: 640px; " class="wp-video"><br>  <video class="wp-video-shortcode" id="video-856-2" width="640" height="360" preload="metadata" controls="controls"><source type="video/mp4" src="https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4"><a href="https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4" target="_blank" rel="external">https://file.duyao.de/ms/63184/AOJ9spJlDpcyI8g/miku_xyz_magic.mp4</a></video><br></div>
@@ -714,36 +714,27 @@
   </entry>
   
   <entry>
-    <title><![CDATA[简单安装Windows 10 的办法]]></title>
-    <link href="http://blog.duyao.de/post/install-windows-10-in-a-vhd-file.html"/>
-    <id>http://blog.duyao.de/post/install-windows-10-in-a-vhd-file.html</id>
+    <title><![CDATA[2014年 名侦探柯南 剧场版第18部 异次元的狙击手]]></title>
+    <link href="http://blog.duyao.de/post/2014-conan-movie-no-18.html"/>
+    <id>http://blog.duyao.de/post/2014-conan-movie-no-18.html</id>
     <published>2014-10-01T16:00:00.000Z</published>
-    <updated>2016-09-25T06:22:53.601Z</updated>
-    <content type="html"><![CDATA[<p>微软今日如约放出了Windows <del>9</del> 10技术预览版的下载，大家现在就可以免费下载Windows 10技术预览版ISO文件，安装并开启体验。Windows 10技术预览版首批提供了英语、简体中文、葡萄牙语，含32位、64位。</p>
-<p>就感觉 开始菜单变了.然后打开窗口和关闭窗口的时候多了点动画效果.其他没有特别感觉.</p>
-<p>后来还是回到Windows 8.1了.</p>
-<p>下面来说说简单绿色的安装办法.</p>
-<p>首先你要先从这里下载一个叫 VHD_OneKey的软件</p>
-<p><a href="https://app.yinxiang.com/shard/s40/sh/1ad7a266-82d9-4708-af18-73b8b9b1c069/0593ecbe617387348fed979e97851511" target="_blank">VHD_OneKey_121001.rar</a></p>
-<p>然后假设你需要用20G的系统盘来体验Windows 10,那你需要有一个剩余容量在20G以上的分区就可以了.</p>
-<p>然后打开这个软件,选择创建VHD文件,然后选择vhd文件的路径,记得剩余容量要比你创建的vhd容量大就可以了.</p>
-<p>然后再从iso文件的source文件夹下选择install.wim文件,镜像编号记得选第一个.<span style="color: #ff0000;"><strong>第二个镜像是没有办法使用官方给你的测试序列号的.</strong></span></p>
-<p>然后确定后一直等到工具提示完成.</p>
-<p>随后点到挂载vhd,选择刚才生成的vhd文件,再点添加启动项到BCD. 然后重启你的电脑,选择新添加的启动项就开始安装Windows 10了.</p>
-<p>&nbsp;</p>
-<p>最后需要提醒的是,通过OneKey生成的vhd文件默认是mbr格式的磁盘. 所以使用UEFI启动的 需要修改bios设置开启兼容模式来使用mbr的磁盘启动.</p>
-<p>也可以用windows 8或者8.1 来新建vhd,详细在磁盘管理里就可以新建.然后使用 NT6.0安装器来安装. 最后用OneKey来添加启动项即可.</p>
-<p>&nbsp;</p>
-<p>另外,如果不喜欢要删掉的话,只要回到之前的系统,删除掉启动项,然后直接把vhd文件干掉就彻底删掉了.非常方便</p>
+    <updated>2016-09-25T06:22:53.000Z</updated>
+    <content type="html"><![CDATA[<p>等了半年,终于出了蓝光. 我也有的看了. 今天看完了.表示柯南的技能又增长了.最后一下堪比带了gps的导弹&#8230;.</p>
+<p style="padding-left: 30px;"><br>  <em>导演: 静野孔文</em><br> <em> 编剧: 青山刚昌 / 古内一成</em><br> <em> 主演: 高山南 / 山口胜平 / 山崎和佳奈 / 小山力也 / 日高法子 / 池田秀一 / 家弓家正 / 梁田清之 / 置鲇龙太郎 / 茶风林 / 井上和彦 / 高木涉 / 汤屋敦子</em><br> <em> 类型: 动画 / 悬疑 / 犯罪</em><br> <em> 官方网站: www.conan-movie.jp</em><br> <em> 制片国家/地区: 日本</em><br> <em> 语言: 日语</em><br> <em> 上映日期: 2014-04-19(日本)</em><br> <em> 片长: 110分钟</em><br> <em> 又名: 名侦探柯南：剧场版第18部 / 名侦探柯南：2014年剧场版 / Meitantei Conan: Ijigen no sunaipa</em><br> <em> IMDb链接: tt3455204</em><br></p>
+
+<p style="padding-left: 30px;"><br>  <em>在高达635米的铃木塔开放仪式上，一颗子弹破窗射穿一名展望台上男子胸口，现场一片混乱，柯南用追踪放大眼镜发现了远在不可能距离进行狙击的黑影，随后FBI朱蒂等卷入调查，谜团直指&#8221;海豹突击队&#8221;，而这次事件只是开端，此时冲矢昂也悄悄行动了起来..</em><br></p>
+
+<p>总体来说这部是近年来最好看的剧场版了.难得也涉及到了主线剧情.估计最后会以剧场版的形式来完结这个吧.希望有生之年能看到啊&#8230;..</p>
+<p>介于剧透不厚道的精神.这里也就不说什么和剧情相关的话题了.总之, 有种子有真相.</p>
+<p>虽然是480p的片子.但是还是能看的.</p>
+<p><a href="http://bt.ktxp.com/html/2014/1002/380678.html" target="_blank">http://bt.ktxp.com/html/2014/1002/380678.html</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>微软今日如约放出了Windows <del>9</del> 10技术预览版的下载，大家现在就可以免费下载Windows 10技术预览版ISO文件，安装并开启体验。Windows 10技术预览版首批提供了英语、简体中文、葡萄牙语，含32位、64位。</p>
-<p>就感觉 开始]]>
+    <![CDATA[<p>等了半年,终于出了蓝光. 我也有的看了. 今天看完了.表示柯南的技能又增长了.最后一下堪比带了gps的导弹&#8230;.</p>
+<p style="padding-left: 30px;"><br>  <em>导演: 静野孔文</em><br> <em> 编剧: 青山刚]]>
     </summary>
     
-      <category term="windows" scheme="http://blog.duyao.de/tags/windows/"/>
-    
-      <category term="印象笔记" scheme="http://blog.duyao.de/tags/%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0/"/>
+      <category term="动画" scheme="http://blog.duyao.de/tags/%E5%8A%A8%E7%94%BB/"/>
     
       <category term="新发现" scheme="http://blog.duyao.de/categories/%E6%96%B0%E5%8F%91%E7%8E%B0/"/>
     
